@@ -27,7 +27,7 @@
  * @namespace
  * @name i18n
  * @version 1.0
- * @author mdoeswijk
+ * @author Alejandro Del Rio
  */
 ;(function( $, context, appName )
 {

@@ -41,7 +41,7 @@ public class MysqlDataBase implements IDBModel {
             prop.put("characterEncoding", "UTF-8");
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             Connection mySqlConnection = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/pdd", prop);
+                    "jdbc:mysql://localhost:3306/barcom", prop);
             return mySqlConnection;
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(MysqlDataBase.class.getName()).log(Level.SEVERE, null, ex);

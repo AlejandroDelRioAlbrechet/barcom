@@ -1,4 +1,9 @@
 /* line 10, ../sass/style.scss */
 body {
-  padding-bottom: 70px;
+  padding-top: 50px;
+}
+
+/* line 12, ../sass/style.scss */
+#login {
+  margin-top: 1em;
 }

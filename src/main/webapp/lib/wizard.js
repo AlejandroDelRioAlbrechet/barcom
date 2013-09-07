@@ -4,7 +4,7 @@
  * @namespace
  * @name marv.iqWizard
  * @version 1.0
- * @author mdoeswijk
+ * @author Alejandro Del Rio
 */
 ;(function( $ )
 {

@@ -27,7 +27,7 @@ import javax.ws.rs.core.Response;
  *
  * @author AliekhandroDelRio
  */
-@Path("/user")
+@Path("/role")
 public class RoleManipilation {
     
     @POST

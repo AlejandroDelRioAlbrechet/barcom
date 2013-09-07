@@ -16,7 +16,7 @@
  * @namespace
  * @name controller
  * @version 1.0
- * @author mdoeswijk
+ * @author Alejandro Del Rio
  */
 ;( function( $, context, appName )
 {
@@ -34,7 +34,28 @@
 
     $( document ).ready( function()
     {
+        theApp.services.getUser( 
+        {
+            successHandler : function ( data )
+            {
+                $.bbq.pushState( { main : "profile" } );
+            }
+        ,   errorHandler   : function ( data ) 
+            {
+                switch( data.xhr.status ) 
+                {
+                    case 404:
+                        $.bbq.pushState( { main : "login" } );
+                        break;
+                    default:
+                        break;
+                }
+                
+                
+            }
+        } );
         
+        $( window ).trigger( "hashchange" );
     } );
 
     $( window ).bind( "hashchange", function( e )
@@ -52,13 +73,16 @@
 
         switch( main )
         {
-            case "example":
-                controller._loadContent( ".innerContent", "myFragment" );
+            case "login":
+                controller._loadContent( ".innerContent", main );
             break;
-
-            case "static": // Fall-through
+            
+            case "profile":
+                controller._loadContent( ".innerContent", main );
+            break;
+            
             default:
-                controller._loadContent( ".innerContent", "htmlonly" );
+                controller._loadContent( ".innerContent", "login" );
             break;
         }
     } );

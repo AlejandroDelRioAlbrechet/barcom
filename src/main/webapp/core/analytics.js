@@ -49,7 +49,7 @@
  * @namespace
  * @name analytics
  * @version 1.0
- * @author mdoeswijk
+ * @author Alejandro Del Rio
  */
 ;(function( $, context, appName )
 {

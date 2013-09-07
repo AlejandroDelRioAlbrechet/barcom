@@ -7,6 +7,8 @@ package com.main.services;
 import com.main.database.MysqlDataBase;
 import com.main.entities.Login;
 import com.main.entities.User;
+import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -14,6 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.CookieParam;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -22,7 +25,11 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.StringUtils;
+import org.codehaus.jackson.map.ObjectMapper;
 
 /**
  *
@@ -47,31 +54,6 @@ public class UserManipulation {
 
         MysqlDataBase.getInstance().insert(query);
         return newUser;
-    }
-
-    @POST
-    @Path("/login")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public User login(Login login) {
-        try {
-            String query = "SELECT * FROM barcom_users WHERE barcom_users.login='admin' LIMIT 1;";
-            ResultSet result = MysqlDataBase.getInstance().select(query).afterExecution();
-            if (result.next()) {
-                User user = new User(result.getInt(1), result.getString(2), result.getString(3), result.getString(4), result.getString(5), result.getString(6), result.getString(7), result.getString(8), result.getInt(9));
-                if (user.getPassword().equals(login.getPassword())) {
-                    return user;
-                } else {
-                    return null;
-                }
-            } else {
-                return null;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(UserManipulation.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        return null;
     }
 
     @GET
