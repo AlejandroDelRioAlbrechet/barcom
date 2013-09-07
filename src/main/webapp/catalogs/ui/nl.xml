@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog lang="nl">
+    <text id="language">Nederlands</text>
+    <text id="txtMyApp">Mijn applicatie</text>
+
+    <!-- General purpose -->
+    <text id="btnClose">Sluiten</text>
+    <text id="btnCancel">Annuleren</text>
+    <text id="btnNext">Doorgaan</text>
+    <text id="btnBack">Vorige</text>
+    <text id="btnSend">Verzenden</text>
+    <text id="btnYes">Ja</text>
+    <text id="btnNo">Nee</text>
+
+    <!-- Form validation -->
+    <text id="frmInvalid">Sommige velden bevatten ongeldige of onvolledige informatie:</text>
+    <text id="frmEmail">Uw e-mail adres is verplicht</text>
+    <text id="frmEmailInvalid">Dit is geen geldig e-mail adres</text>
+
+    <!-- Date/time -->
+    <text id="JAN">JAN</text>
+    <text id="FEB">FEB</text>
+    <text id="MAR">MAA</text>
+    <text id="APR">APR</text>
+    <text id="JUN">JUN</text>
+    <text id="JUL">JUL</text>
+    <text id="AUG">AUG</text>
+    <text id="SEP">SEP</text>
+    <text id="OCT">OKT</text>
+    <text id="NOV">NOV</text>
+    <text id="DEC">DEC</text>
+</catalog>

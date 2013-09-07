@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<catalog lang="en">
+    <text id="language">English</text>
+    <text id="txtMyApp">My application</text>
+
+    <!-- General purpose -->
+    <text id="btnClose">Close</text>
+    <text id="btnCancel">Cancel</text>
+    <text id="btnNext">Continue</text>
+    <text id="btnBack">Previous</text>
+    <text id="btnSend">Send</text>
+    <text id="btnYes">Yes</text>
+    <text id="btnNo">No</text>
+
+    <!-- Form validation -->
+    <text id="frmInvalid">Some fields contain invalid or incomplete information:</text>
+    <text id="frmEmail">Your e-mail address is required</text>
+    <text id="frmEmailInvalid">This is not a valid e-mail address</text>
+
+    <!-- Date/time -->
+    <text id="JAN">JAN</text>
+    <text id="FEB">FEB</text>
+    <text id="MAR">MAR</text>
+    <text id="APR">APR</text>
+    <text id="JUN">JUN</text>
+    <text id="JUL">JUL</text>
+    <text id="AUG">AUG</text>
+    <text id="SEP">SEP</text>
+    <text id="OCT">OCT</text>
+    <text id="NOV">NOV</text>
+    <text id="DEC">DEC</text>
+</catalog>
