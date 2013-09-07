@@ -53,4 +53,4 @@
     {
         return $xmlSomething.find( "Something Else" );
     };
-} )( jQuery, window, "myAppName" );
+} )( jQuery, window, "barcom" );

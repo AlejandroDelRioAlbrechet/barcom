@@ -572,4 +572,4 @@
         return JSON.parse( str );
     }
 
-} )( jQuery, window, "myAppName" );
+} )( jQuery, window, "barcom" );

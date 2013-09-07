@@ -6,8 +6,8 @@
  *
  * <code><pre>
  * &lt;script type="text/javascript"&gt;
- *     window.myAppName || ( window.myAppName = {} );
- *     window.myAppName.settings = {
+ *     window.barcom || ( window.barcom = {} );
+ *     window.barcom.settings = {
  *         foo:              "bar"
  *     };
  * &lt;/script&gt;
@@ -29,119 +29,12 @@
     // Extend the settings with any defaults you might have
     //
     theApp.settings     = $.extend(  {
-                            language:   "en"
+                            language:   "ua"
                         },  ( theApp.settings || {} ) );
 
     $( document ).ready( function()
     {
-        // Intialize the services by loading their message templates
-        // If your application does not need XML message templates or your
-        // service calls are organised in a different fashion then just remove
-        // the whole initialisation call
-        //
-        theApp.services.initialize(
-        {
-            successHandler: function()
-            {
-                // Startup language selection (based on settings)
-                // If your application does not require multi-language support
-                // you can remove the catalog folder, the core/i18n.js file and
-                // include statement along with this piece of code
-                //
-                if ( theApp.settings.language )
-                {
-                    theApp.i18n.switchLanguage( theApp.settings.language );
-                }
-
-                // Start the application by triggering the initial hash change event
-                //
-                $( window ).triggerHandler( "hashchange" );
-            },
-
-            errorHandler: function()
-            {
-                alert( "Failed to initialize the application" );
-            }
-        } );
-    } );
-
-    // Setup navigation and back button support using the excellent BBQ
-    // library
-    //
-    // Our navigation approach is comprised of 2 pieces of code:
-    // * link handling delegate
-    // * hashchange event handler
-    //
-    $( document ).delegate( "a", "click", function( e )
-    {
-        var $link = $( this )
-        ,   href, urlParams;
-
-        // Old-skool removal of the dotted focus bracket around links in IE
-        //
-        $link.blur();
-
-        // If a hyperlink has a class disabled it will not be clickable
-        //
-        if ( $link.hasClass( "disabled" ) )
-        {
-            return false;
-        }
-
-        // External links need to behave as normal
-        // External means not part of this web application so they could
-        // still link to pages inside our domain
-        //
-        if ( "external" === $link.attr( "rel" ) )
-        {
-            return true;
-        }
-
-        // All internal links are handled by hashchange event handler
-        // Only a small number of special links are handled here
-        //
-        href = $link.attr( "href" );
-        if ( !href )
-        {
-            return false;
-        }
-        else
-        {
-            // Keep in mind IE will return the full link in the attr() call
-            // so strip of everything before the #
-            //
-            href = href.split( "#" )[ 1 ] || ""
-        }
-
-        theApp.log( "[link delegate handler]", href );
-
-        // Below we will handle special href's that are not part of the
-        // normal navigation structure. So special href like '#logout' or
-        // maybe '#next' and 'previous'. Opening modal dialogs can also be
-        // something you don't want to be added to your navigation stack.
-        // So these are links you don't want to trigger an url change.
-        //
-        switch( href )
-        {
-            case "logout":
-                // Perform your logout here
-                //
-                return false;
-            break;
-
-            case "close":
-            case "more":
-            case "next":
-            case "previous":
-            case "yes":
-            case "no":
-                // These are href's we tend to use for standard buttons
-                // and functions so they are excluded from triggering
-                // url changes
-                //
-                return false;
-            break;
-        }
+        
     } );
 
     $( window ).bind( "hashchange", function( e )
@@ -290,4 +183,4 @@
             $context.find( "[autofocus]" ).first().focus();
         }
     }
-} )( jQuery, window, "myAppName" );
+} )( jQuery, window, "barcom" );

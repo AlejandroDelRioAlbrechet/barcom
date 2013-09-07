@@ -179,4 +179,4 @@
 
         return $catalog.find( "text[id='" + key + "']:first" ).text();
     };
-} )( jQuery, window, "myAppName" );
+} )( jQuery, window, "barcom" );

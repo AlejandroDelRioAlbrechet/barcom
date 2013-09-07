@@ -223,4 +223,4 @@
     // Expose the fragment (html and js names must match)
     //
     theApp.fragments.registerFragment( fragmentName, fragment );
-} )( jQuery, window, "myAppName" );
+} )( jQuery, window, "barcom" );

@@ -6,10 +6,10 @@
  *
  * <code><pre>
  * &lt;script type="text/javascript"&gt;
- *     window.myAppName || ( window.myAppName = {} );
- *     window.myAppName.settings = {
+ *     window.barcom || ( window.barcom = {} );
+ *     window.barcom.settings = {
  *         analyticsAccount: "ABC123XYZ",
- *         analyticsBaseURL: "/MyAppName/",
+ *         analyticsBaseURL: "/barcom/",
  *         analyticsDomain: ".cessniq.com",
  *         foo:              "bar"
  *     };
@@ -384,4 +384,4 @@
 
         wa.track();
     }
-} )( jQuery, window, "myAppName" );
+} )( jQuery, window, "barcom" );

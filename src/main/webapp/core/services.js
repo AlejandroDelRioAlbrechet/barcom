@@ -23,40 +23,7 @@
 
     theApp.services     = services;
 
-    /**
-     * Required initialization call for the services to function.
-     * Loads the messages.xml file from the fragments folder.
-     * This file contains the call templates for all the other service calls
-     *
-     * @param params               (object)    Parameter object for the service call
-     * @param params.successHandler (function)  Callback function when the call is succesful
-     * @param params.errorHandler   (function)  Callback function when the call fails
-     */
-    services.initialize = function( params )
-    {
-        var options = $.extend(
-        {
-            successHandler: function(){},
-            errorHandler:   function(){}
-        }, params );
-
-        // Load the XML message templates
-        //
-        $.ajax(
-        {
-            url: "fragments/messages.xml",
-            success: function( data, status, xhr )
-            {
-                $messages = $( data );
-                options.successHandler( { request: null, response: data, xhr: xhr } );
-            },
-            error: function( xhr, status, error )
-            {
-                options.errorHandler( { request: null, response: ( error ? error.message: status ), xhr: xhr } );
-            },
-            dataType: "xml"
-        } );
-    };
+   
 
     /**
      * EXAMPLE: This function could be used to login an application user
@@ -105,4 +72,4 @@
             dataType:    "xml"
         } );
     };
-})( jQuery, window, "myAppName" );
+})( jQuery, window, "barcom" );

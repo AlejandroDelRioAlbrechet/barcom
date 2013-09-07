@@ -168,4 +168,4 @@
         $confirm.data( "overlay" ).close();
         $alert.data(   "overlay" ).close();
     }
-} )( jQuery, window, "myAppName" );
+} )( jQuery, window, "barcom" );

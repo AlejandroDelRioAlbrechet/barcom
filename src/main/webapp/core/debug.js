@@ -65,4 +65,4 @@
 
         console.error.apply( console, arguments );
     };
-} )( jQuery, window, "myAppName" );
+} )( jQuery, window, "barcom" );
