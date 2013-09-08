@@ -38,7 +38,16 @@
         {
             successHandler : function ( data )
             {
-                $.bbq.pushState( { main : "profile" } );
+                if ( data.response )
+                {
+                    $.bbq.pushState( { main : "profile" } );
+                    $( ".navbar-right, .navbar-left" ).removeClass( "hidden" );
+                    $( ".username strong" ).text( data.response.firstName + " " + data.response.lastName );
+                }
+                else 
+                {
+                    $.bbq.pushState( { main : "login" } );
+                }
             }
         ,   errorHandler   : function ( data ) 
             {
@@ -53,6 +62,26 @@
                 
                 
             }
+        } );
+        
+        $( ".logout" ).on( "click", function( e ) 
+        {
+            e.preventDefault();
+
+            theApp.services.logout( 
+            {
+                successHandler : function ( data )
+                {
+                    $( ".navbar-right, .navbar-left" ).addClass( "hidden" );
+                    $.bbq.pushState( { main : "login" } );
+                }
+            ,   errorHandler   : function ( data ) 
+                {
+                    
+                }
+            } );
+
+            return false;
         } );
         
         $( window ).trigger( "hashchange" );

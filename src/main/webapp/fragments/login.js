@@ -92,6 +92,9 @@
                     }
                 ,   successHandler : function ( data )
                     {
+                        $( ".navbar-right" ).removeClass( "hidden" );
+                        $( ".navbar-left" ).removeClass( "hidden" );
+                        $( ".username strong" ).text( data.response.firstName + " " + data.response.lastName );
                         $.bbq.pushState( { main : "profile" } );
                     }
                 ,   errorHandler   : function ( data ) 

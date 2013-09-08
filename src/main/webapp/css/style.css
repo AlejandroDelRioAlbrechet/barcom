@@ -1,9 +1,43 @@
-/* line 10, ../sass/style.scss */
-body {
-  padding-top: 50px;
+@font-face {
+  font-family: 'Glyphicons Halflings';
+  src: url("../fonts/glyphicons-halflings-regular.eot");
+  src: url("../fonts/glyphicons-halflings-regular.eot?#iefix") format("embedded-opentype"), url("../fonts/glyphicons-halflings-regular.woff") format("woff"), url("../fonts/glyphicons-halflings-regular.ttf") format("truetype"), url("../fonts/glyphicons-halflings-regular.svg#glyphicons-halflingsregular") format("svg");
 }
 
-/* line 12, ../sass/style.scss */
+/* line 15, ../sass/style.scss */
+body {
+  padding-top: 70px;
+}
+
+/* line 17, ../sass/style.scss */
 #login {
   margin-top: 1em;
+}
+
+/* line 19, ../sass/style.scss */
+.navbar-right strong {
+  margin-left: 10px;
+}
+
+/* line 21, ../sass/style.scss */
+.snippets {
+  display: none;
+}
+
+/* line 23, ../sass/style.scss */
+.bs-example {
+  border-style: solid;
+  padding: 15px 15px 15px 15px;
+  margin-left: 0;
+  margin-right: 0;
+  background-color: #fff;
+  border-width: 1px;
+  border-color: #ddd;
+  border-radius: 4px 4px 0 0;
+  box-shadow: none;
+}
+
+/* line 25, ../sass/style.scss */
+.error {
+  color: red;
 }

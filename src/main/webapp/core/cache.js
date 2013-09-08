@@ -15,42 +15,19 @@
 {
     var theApp   = $.getAndCreateContext( appName, context )
     ,   cache    = {}
+    ,   user     = undefined
     ;
 
     theApp.cache = cache;
-
-    // The (private) cache data
-    //
-    var $xmlSomething = null;
-
-   /**
-    * EXAMPLE: This function would be used to store updated application data.
-    * Events are sent to notify that the cache has been updated
-    *
-    * @param data   (Document)  XML Document
-    */
-    cache.storeSomething = function( data )
+    
+    cache.storeUser = function( userData ) 
     {
-        $xmlSomething = $( data );
+        user = userData;
     };
 
-    /**
-     * EXAMPLE: Retrieves a bit of data from the cache
-     *
-     * @return (Array) The requested "Something" data as a jQuery object array
-     */
-    cache.getSomething = function()
+    cache.getUser = function() 
     {
-        return $xmlSomething.find( "Something" );
+        return user;
     };
 
-    /**
-     * EXAMPLE: Retrieves a more specific bit of data from the cache
-     *
-     * @return (Array) The requested "Else" data as a jQuery object array
-     */
-    cache.getSomethingElse = function()
-    {
-        return $xmlSomething.find( "Something Else" );
-    };
 } )( jQuery, window, "barcom" );

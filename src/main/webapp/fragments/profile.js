@@ -68,7 +68,66 @@
         var $context        = $( options.context )
         ;
         
-        console.log( profile );
+        theApp.services.getUser( 
+        {
+            successHandler : function ( data )
+            {
+                $( "#login" ).val( data.response.login );
+                $( "#firstname" ).val( data.response.firstName );
+                $( "#lastname" ).val( data.response.lastName );
+                $( "#email" ).val( data.response.email );
+                $( "#telephone" ).val( data.response.phoneNumber );
+                $( "#adress" ).val( data.response.adress );
+                
+                $context.find( ".bs-example" ).validate( 
+                {
+                    rules : 
+                    {
+                        login : 
+                        {
+                            required : true
+                        }
+                    ,   email : 
+                        {
+                            required : true
+                        }
+                    ,   firstname : 
+                        {
+                            required : true
+                        }
+                    ,   lastname : 
+                        {
+                            required : true
+                        }
+                    ,   telephone : 
+                        {
+                            required : true
+                        }
+                    ,   adress : 
+                        {
+                            required : true
+                        }
+                    ,   password : 
+                        {
+                            required : true
+                        }
+                    ,   password2 : 
+                        {
+                            required : true
+                        }
+                    }
+                ,   submitHandler : function( form ) 
+                    {
+                        
+                    }
+                } );
+            }
+        ,   errorHandler   : function ( data ) 
+            {
+                
+            }
+        } );
+        
 
         // Use the fragment navigate function to set the correct fragment state
         //
