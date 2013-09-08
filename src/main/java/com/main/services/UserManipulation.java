@@ -29,6 +29,7 @@ import javax.ws.rs.core.NewCookie;
 import javax.ws.rs.core.Response;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 import org.codehaus.jackson.map.ObjectMapper;
 
 /**
@@ -83,17 +84,20 @@ public class UserManipulation {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("/{userId}")
-    public User updateUser(@PathParam("userId") String userId, User updatedUser) {
-        String query = "UPDATE `barcom_users` SET `login`='" + updatedUser.getLogin()
-                + "', `password`='" + updatedUser.getPassword()
-                + "', `first_name`='" + updatedUser.getFirstName()
-                + "', `last_name`='" + updatedUser.getLastName()
-                + "', `email`='" + updatedUser.getEmail()
-                + "', `phone_number`='" + updatedUser.getPhoneNumber()
-                + "', `adress`='" + updatedUser.getAdress()
-                + "', `role_id`=" + updatedUser.getRoleId()
-                + " WHERE  `id`=" + userId + " LIMIT 1;";
-        MysqlDataBase.getInstance().update(query);
+    public User updateUser(User updatedUser, @PathParam("userId") String userId) {
+        if ( updatedUser != null ) 
+        {
+            String query = "UPDATE `barcom_users` SET `login`='" + updatedUser.getLogin()
+                    + "', `password`='" + updatedUser.getPassword()
+                    + "', `first_name`='" + updatedUser.getFirstName()
+                    + "', `last_name`='" + updatedUser.getLastName()
+                    + "', `email`='" + updatedUser.getEmail()
+                    + "', `phone_number`='" + updatedUser.getPhoneNumber()
+                    + "', `adress`='" + updatedUser.getAdress()
+                    + "', `role_id`=" + updatedUser.getRoleId()
+                    + " WHERE  `id`=" + userId + " LIMIT 1;";
+            MysqlDataBase.getInstance().update(query);
+        }
         return updatedUser;
     }
 

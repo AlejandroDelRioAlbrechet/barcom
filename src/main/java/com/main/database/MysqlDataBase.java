@@ -69,8 +69,8 @@ public class MysqlDataBase implements IDBModel {
     @Override
     public Executable insert(String query) {
         try {
-            ResultSet rs = createConnection().createStatement().executeQuery(query);
-            return new Exec(rs);
+            createConnection().createStatement().executeUpdate(query);
+            return new Exec(null);
         } catch (SQLException ex) {
             Logger.getLogger(MysqlDataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -80,8 +80,8 @@ public class MysqlDataBase implements IDBModel {
     @Override
     public Executable update(String query) {
         try {
-            ResultSet rs = createConnection().createStatement().executeQuery(query);
-            return new Exec(rs);
+            createConnection().createStatement().executeUpdate(query);
+            return new Exec(null);
         } catch (SQLException ex) {
             Logger.getLogger(MysqlDataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -91,8 +91,8 @@ public class MysqlDataBase implements IDBModel {
     @Override
     public Executable remove(String query) {
         try {
-            ResultSet rs = createConnection().createStatement().executeQuery(query);
-            return new Exec(rs);
+            createConnection().createStatement().executeUpdate(query);
+            return new Exec(null);
         } catch (SQLException ex) {
             Logger.getLogger(MysqlDataBase.class.getName()).log(Level.SEVERE, null, ex);
         }

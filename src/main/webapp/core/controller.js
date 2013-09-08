@@ -38,6 +38,7 @@
         {
             successHandler : function ( data )
             {
+                $( window ).trigger( "hashchange" );
                 if ( data.response )
                 {
                     $.bbq.pushState( { main : "profile" } );
@@ -51,6 +52,7 @@
             }
         ,   errorHandler   : function ( data ) 
             {
+                $( window ).trigger( "hashchange" );
                 switch( data.xhr.status ) 
                 {
                     case 404:
@@ -59,8 +61,6 @@
                     default:
                         break;
                 }
-                
-                
             }
         } );
         
@@ -84,7 +84,7 @@
             return false;
         } );
         
-        $( window ).trigger( "hashchange" );
+//        $( window ).trigger( "hashchange" );
     } );
 
     $( window ).bind( "hashchange", function( e )

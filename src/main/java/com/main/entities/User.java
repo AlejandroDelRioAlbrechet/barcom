@@ -4,20 +4,41 @@
  */
 package com.main.entities;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import org.codehaus.jackson.annotate.JsonProperty;
+
 /**
  *
  * @author AliekhandroDelRio
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User {
-    
+
+    @JsonProperty("id")
     private int id;
+    
+    @JsonProperty("login")
     private String login;
+    
+    @JsonProperty("password")
     private String password;
+    
+    @JsonProperty("firstName")
     private String firstName;
+    
+    @JsonProperty("lastName")
     private String lastName;
+    
+    @JsonProperty("email")
     private String email;
+    
+    @JsonProperty("phoneNumber")
     private String phoneNumber;
+    
+    @JsonProperty("adress")
     private String adress;
+    
+    @JsonProperty("roleId")
     private int roleId;
 
     public User(int id, String login, String password, String firstName, String lastName, String email, String phoneNumber, String adress, int role_id) {
@@ -34,7 +55,7 @@ public class User {
 
     public User() {
     }
-    
+
     public int getId() {
         return id;
     }
@@ -129,5 +150,4 @@ public class User {
         }
         return true;
     }
-    
 }

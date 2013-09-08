@@ -114,11 +114,32 @@
                     ,   password2 : 
                         {
                             required : true
+                        ,    equalTo: "#password"
                         }
                     }
                 ,   submitHandler : function( form ) 
                     {
+                        var updatedUser = data.response;
+                        updatedUser.adress = $( "#adress" ).val().trim();
+                        updatedUser.email = $( "#email" ).val().trim();
+                        updatedUser.firstName = $( "#firstname" ).val().trim();
+                        updatedUser.lastName = $( "#lastname" ).val().trim();
+                        updatedUser.login = $( "#login" ).val().trim();
+                        updatedUser.phoneNumber = $( "#telephone" ).val().trim();
+                        updatedUser.password = $( "#password" ).val().trim();
                         
+                        theApp.services.updateUser( 
+                        {
+                            userId : data.response.id
+                        ,   data :   updatedUser
+                        ,   successHandler : function ( data )
+                            {
+                               
+                            }
+                        ,   errorHandler   : function ( data ) 
+                            {
+                            }
+                        } );
                     }
                 } );
             }

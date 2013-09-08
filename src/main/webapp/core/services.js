@@ -94,4 +94,29 @@
         } );
     };
     
+    services.updateUser = function( params ) 
+    {
+        var options = $.extend(
+        {
+            successHandler: function(){},
+            errorHandler:   function(){},
+        }, params );
+
+        $.ajax(
+        {
+            type:   "PUT"
+        ,   url:    "rest/user/" + params.userId
+        ,   data:   JSON.stringify( options.data )
+        ,   success: function( data, status, xhr )
+            {
+                options.successHandler( { response: data, xhr: xhr } );
+            }
+        ,   error: function( xhr, status, error )
+            {
+                options.errorHandler( { status : status, xhr: xhr } );
+            }
+        ,   contentType: "application/json"
+        } );
+    };
+    
 })( jQuery, window, "barcom" );
