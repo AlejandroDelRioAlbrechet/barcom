@@ -149,7 +149,55 @@
             }
         } );
         
+        var dropbox = document.getElementById( "dropbox" )
+        ,   dragEventLeave = function( e ) 
+            {
+                e.stopPropagation();
+                e.preventDefault();
+            }
+        ;
 
+        dropbox.addEventListener( "dragenter", dragEventLeave, false);
+        dropbox.addEventListener( "dragleave", dragEventLeave, false);
+        dropbox.addEventListener( "dragover", function( e ) 
+        {
+            e.stopPropagation()
+            e.preventDefault()
+            var clazz = 'not-available';
+            var ok = e.dataTransfer && e.dataTransfer.types && e.dataTransfer.types.indexOf( 'Files' ) >= 0
+            if ( ok ) 
+            {
+                $( "#dropbox span" ).text( "Кинь файли у цей регіон" ).removeClass( "not-available" ).addClass( "over" ); 
+            }
+            else 
+            {
+                $( "#dropbox span" ).text( "Дозволено додавати лише файли" ).removeClass( "over" ).addClass( "not-available" );
+            }
+
+        }, false );
+        
+        dropbox.addEventListener( "drop", function(evt) 
+        {
+            console.log('drop evt:', JSON.parse(JSON.stringify(evt.dataTransfer)))
+            evt.stopPropagation()
+            evt.preventDefault()
+//        scope.$apply(function(){
+//            scope.dropText = 'Drop files here...'
+//            scope.dropClass = ''
+//        })
+            var files = evt.dataTransfer.files;
+            if ( files.length > 0 ) 
+            {
+//            scope.$apply(function(){
+//                scope.files = []
+                for ( var i = 0; i < files.length; i++ ) 
+                {
+//                    scope.files.push(files[i])
+                }
+//            })
+            }
+        }, false)
+        
         // Use the fragment navigate function to set the correct fragment state
         //
         fragment.navigate( params );

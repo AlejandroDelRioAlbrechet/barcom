@@ -143,22 +143,36 @@
                 </div>
             </div>
         </form>
-        <form class="bs-example docs" role="form" method="POST" action="rest/file-upload">
-            <div class="row">
-                <div class="col-md-12">
-                    <h3>Скановані документи</h3>
-                    <hr>
-                </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h3>Скановані документи</h3>
+                <hr>
             </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="file" name="docUpload">
-                </div>
-                <div class="col-md-8">
-                    <button type="submit" class="btn btn-primary">Зберегти</button>
-                </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="dropbox" id="dropbox"><span>Кинь файли у цей регіон</span></div>
+                <div class="files"></div>
             </div>
-            
-        </form>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <input type="file" name="docUpload" class="">
+            </div>
+            <div class="col-md-8">
+                <button type="submit" class="btn btn-primary">Додати</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <button type="submit" class="btn btn-primary">Зберегти</button>
+            </div>
+        </div>
+    </div>
+    <div class="snippets">
+        <div class="col-md-12">
+            <div class="col-md-9 fileName"></div>
+            <div class="col-md-3 fileSize"></div>
+        </div>
     </div>
 </div>
