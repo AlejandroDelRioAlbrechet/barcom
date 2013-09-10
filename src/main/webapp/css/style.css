@@ -10,21 +10,16 @@ body {
 }
 
 /* line 17, ../sass/style.scss */
-#login {
-  margin-top: 1em;
-}
-
-/* line 19, ../sass/style.scss */
 .navbar-right strong {
   margin-left: 10px;
 }
 
-/* line 21, ../sass/style.scss */
+/* line 19, ../sass/style.scss */
 .snippets {
   display: none;
 }
 
-/* line 23, ../sass/style.scss */
+/* line 21, ../sass/style.scss */
 .bs-example {
   border-style: solid;
   padding: 15px 15px 15px 15px;
@@ -37,7 +32,12 @@ body {
   box-shadow: none;
 }
 
-/* line 25, ../sass/style.scss */
+/* line 23, ../sass/style.scss */
 .error {
   color: red;
+}
+
+/* line 25, ../sass/style.scss */
+.docs {
+  margin-top: 1em;
 }

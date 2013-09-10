@@ -79,7 +79,7 @@
                 $( "#telephone" ).val( data.response.phoneNumber );
                 $( "#adress" ).val( data.response.adress );
                 
-                $context.find( ".bs-example" ).validate( 
+                $context.find( ".profileForm" ).validate( 
                 {
                     rules : 
                     {
