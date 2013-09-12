@@ -56,7 +56,12 @@
         <!--@@js-dev-start@@ -->
         <!-- jQuery itself is loaded from Google CDN -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-
+        <script type="text/javascript">
+            <!--//--><![CDATA[//><!--
+            window.jQuery || document.write("<script src='lib/jquery-1.8.3.min.js'>\x3C/script>")
+            //--><!]]>
+        </script>
+        
         <!-- Library includes -->
         <script src="lib/bootstrap/bootstrap.min.js"></script>
         <script src="lib/context.js"></script>

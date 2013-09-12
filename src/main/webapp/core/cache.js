@@ -16,6 +16,7 @@
     var theApp   = $.getAndCreateContext( appName, context )
     ,   cache    = {}
     ,   user     = undefined
+    ,   users    = undefined
     ;
 
     theApp.cache = cache;
@@ -28,6 +29,16 @@
     cache.getUser = function() 
     {
         return user;
+    };
+
+    cache.storeUsers = function( data ) 
+    {
+        users = data;
+    };
+    
+    cache.getUsers = function() 
+    {
+        return users;
     };
 
 } )( jQuery, window, "barcom" );

@@ -31,7 +31,12 @@
     theApp.settings     = $.extend(  {
                             language:   "ua"
                         },  ( theApp.settings || {} ) );
-
+                        
+    var modules = 
+        {
+            userManagment : { url : "user-managment", name : "Керування користувачами" }
+        };
+                        
     $( document ).ready( function()
     {
         theApp.services.getUser( 
@@ -39,11 +44,15 @@
             successHandler : function ( data )
             {
                 $( window ).trigger( "hashchange" );
+                $( ".navbar-right, .navbar-left" ).removeClass( "hidden" );
+                $( ".username strong" ).text( data.response.firstName + " " + data.response.lastName );
+                
                 if ( data.response )
                 {
-                    $.bbq.pushState( { main : "profile" } );
-                    $( ".navbar-right, .navbar-left" ).removeClass( "hidden" );
-                    $( ".username strong" ).text( data.response.firstName + " " + data.response.lastName );
+                    if ( !$.bbq.getState( "main" ) ) 
+                    {
+                        $.bbq.pushState( { main : "profile" } );
+                    }
                 }
                 else 
                 {
@@ -84,7 +93,6 @@
             return false;
         } );
         
-//        $( window ).trigger( "hashchange" );
     } );
 
     $( window ).bind( "hashchange", function( e )
@@ -99,7 +107,7 @@
         // switch/case will sort you out
         //
         var main = $.bbq.getState( "main" );
-
+        
         switch( main )
         {
             case "login":
@@ -107,6 +115,10 @@
             break;
             
             case "profile":
+                controller._loadContent( ".innerContent", main );
+            break;
+            
+            case "userManagment":
                 controller._loadContent( ".innerContent", main );
             break;
             
@@ -235,5 +247,6 @@
             //
             $context.find( "[autofocus]" ).first().focus();
         }
-    }
+    };
+    
 } )( jQuery, window, "barcom" );

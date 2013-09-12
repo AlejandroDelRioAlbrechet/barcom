@@ -37,3 +37,5 @@ table { border-collapse: collapse; }
     &.not-available { background-color: #F88; }
     &.over { background-color: #bfb; }
 }
+
+input[type="range"].form-control { margin-left: 10px; width: auto; height: auto; padding: 0; font-size: 0; line-height: auto; vertical-align: middle; background-color: #ffffff; border: none; border-radius: 4px; @include box-shadow( none ); }
