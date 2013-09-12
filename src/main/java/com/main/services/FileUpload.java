@@ -12,10 +12,13 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Response;
 
 /**
@@ -26,12 +29,13 @@ import javax.ws.rs.core.Response;
 public class FileUpload {
     
     @POST
+    @Path("/user-image/{userId}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadFile(
+    public Response uploadUserImage(
             @FormDataParam("file") InputStream uploadedInputStream,
-            @FormDataParam("file") FormDataContentDisposition fileDetail) {
-
-        String uploadedFileLocation = Constants.USER_IMAGE_UPLOAD_PATH + fileDetail.getFileName();
+            @FormDataParam("file") FormDataContentDisposition fileDetail, @PathParam("userId") String userId) {
+        String fileType = fileDetail.getFileName().substring(fileDetail.getFileName().indexOf("."), fileDetail.getFileName().length());
+        String uploadedFileLocation = Constants.USER_IMAGE_UPLOAD_PATH + File.separator + userId + fileType;
 
         // save it
         saveToFile(uploadedInputStream, uploadedFileLocation);
@@ -47,18 +51,18 @@ public class FileUpload {
             String uploadedFileLocation) {
 
         try {
-            OutputStream out = null;
             int read = 0;
             byte[] bytes = new byte[1024];
-
-            out = new FileOutputStream(new File(uploadedFileLocation));
+            File file = new File(uploadedFileLocation);
+            file.createNewFile();
+            OutputStream out = new FileOutputStream(file);
             while ((read = uploadedInputStream.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
             out.flush();
             out.close();
         } catch (IOException e) {
-            e.printStackTrace();
+            Logger.getLogger(FileUpload.class.getName()).log(Level.SEVERE, null, e);
         }
 
     }

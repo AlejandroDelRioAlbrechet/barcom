@@ -72,6 +72,9 @@
         {
             successHandler : function ( data )
             {
+                
+                $context.find( ".userImage" ).attr( "action", "rest/file-upload/user-image/" + data.response.id );
+                
                 $context.find( "#login" ).val( data.response.login );
                 $context.find( "#firstname" ).val( data.response.firstName );
                 $context.find( "#lastname" ).val( data.response.lastName );
@@ -95,94 +98,33 @@
                 {
                     rules : 
                     {
-                        login : 
-                        {
-                            required : true
-                        }
-                    ,   email : 
-                        {
-                            required : true
-                        }
-                    ,   firstname : 
-                        {
-                            required : true
-                        }
-                    ,   lastname : 
-                        {
-                            required : true
-                        }
-                    ,   telephone : 
-                        {
-                            required : true
-                        }
-                    ,   adress : 
-                        {
-                            required : true
-                        }
-                    ,   password : 
-                        {
-                            required : true
-                        }
-                    ,   password2 : 
-                        {
-                            required : true
-                        ,    equalTo: "#password"
-                        }
-                    ,   fathername : 
-                        {
-                            required : true
-                        }
-                    ,   officialStartDate : 
-                        {
-                            required : true
-                        }
-                    ,   startDate : 
-                        {
-                            required : true
-                        }
-                    ,   shclude : 
-                        {
-                            required : true
-                        }
-                    ,   director : 
-                        {
-                            required : true
-                        }
-                    ,   department : 
-                        {
-                            required : true
-                        }
-                    ,   workTelephone : 
-                        {
-                            required : true
-                        }
-                    ,   homeTelephone : 
-                        {
-                            required : true
-                        }
-                    ,   registrationAdress : 
-                        {
-                            required : true
-                        }
-                    ,   pasportNumber : 
-                        {
-                            required : true
-                        }
-                    ,   birthDate : 
-                        {
-                            required : true
-                        }
-                    ,   identicalCode : 
-                        {
-                            required : true
-                        }
+                        login : { required : true }
+                    ,   email : { required : true }
+                    ,   firstname :  { required : true }
+                    ,   lastname :  { required : true }
+                    ,   telephone :  { required : true }
+                    ,   adress :  { required : true }
+                    ,   password :  { required : true }
+                    ,   password2 :  { required : true ,    equalTo: "#password" }
+                    ,   fathername :  { required : true }
+                    ,   officialStartDate :  { required : true }
+                    ,   startDate :  { required : true }
+                    ,   shclude : { required : true }
+                    ,   director :  { required : true }
+                    ,   department :  { required : true }
+                    ,   workTelephone :  { required : true }
+                    ,   homeTelephone :  { required : true }
+                    ,   registrationAdress :  { required : true }
+                    ,   pasportNumber :  { required : true }
+                    ,   birthDate :     { required : true }
+                    ,   identicalCode : { required : true }
                     }
                 ,   submitHandler : function( form ) 
                     {
                         var updatedUser                     = data.response;
                         updatedUser.adress                  = $context.find( "#adress" ).val().trim();
                         updatedUser.birthDate               = $context.find( "#birthDate" ).val().trim();
-                        updatedUser.dateOfFormalArrangment  = $context.find( "#login" ).val().trim();
+                        updatedUser.dateOfFormalArrangment  = $context.find( "#officialStartDate" ).val().trim();
                         updatedUser.department              = $context.find( "#department" ).val().trim();
                         updatedUser.director                = $context.find( "#director" ).val().trim();
                         updatedUser.email                   = $context.find( "#email" ).val().trim();
@@ -206,10 +148,31 @@
                         ,   data :   updatedUser
                         ,   successHandler : function ( data )
                             {
-                               
+                                // TODO : SUCCESS message
+                                //
                             }
                         ,   errorHandler   : function ( data ) 
                             {
+                            }
+                        } );
+                    }
+                } );
+                
+                $context.find( ".userImage" ).validate( 
+                {
+                    rules : 
+                    {
+                        file : { required : true }
+                    }
+                ,   submitHandler : function( form ) 
+                    {
+                        $context.find( ".userImage" ).ajaxSubmit( 
+                        {
+                            success : function( responseText, statusText, xhr, $form )
+                            {
+                                console.log( responseText, statusText, xhr, $form );
+                                // TODO: SHOW USER IMAGE
+                                //
                             }
                         } );
                     }

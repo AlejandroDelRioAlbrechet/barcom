@@ -5,8 +5,10 @@
                 <img src="" height="300">
             </pre> 
         </div>
-        <form class="userImage" role="form">
-            <input type="file" name="docUpload">
+        <form class="userImage" enctype="multipart/form-data" method="POST" action="">
+            <input type="file" name="file" id="file">
+            <hr>
+            <input type="submit" class="btn btn-primary" value="Зберегти">
         </form>
     </div>
     <div class="col-md-9">
@@ -92,7 +94,7 @@
                     <div class="form-group">
                         <label for="shclude">Графіік роботи *</label>
                         <input type="text" name="shclude" class="form-control" id="shclude" placeholder="Графіік роботи">
-                         <p class="help-block">Приклад формату 8:30-18:30</p>
+                        <p class="help-block">Приклад формату 8:30-18:30</p>
                     </div>
                 </div>
                 <div class="col-md-4">

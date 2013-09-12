@@ -119,4 +119,32 @@
         } );
     };
     
+    services.fileUpload = function( params ) 
+    {
+        var options = $.extend(
+        {
+            successHandler: function(){},
+            errorHandler:   function(){},
+        }, params );
+
+        console.log( options.formData );
+        
+        $.ajax(
+        {
+            type:   "POST"
+        ,   url:    "rest/file-upload/"
+        ,   data:   options.formData
+        ,   success: function( data, status, xhr )
+            {
+                options.successHandler( { response: data, xhr: xhr } );
+            }
+        ,   error: function( xhr, status, error )
+            {
+                options.errorHandler( { status : status, xhr: xhr } );
+            }
+        ,   contentType: "multipart/form-data"
+        ,   cache: false
+        } );
+    };
+    
 })( jQuery, window, "barcom" );
