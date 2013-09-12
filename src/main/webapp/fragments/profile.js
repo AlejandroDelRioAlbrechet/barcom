@@ -72,12 +72,24 @@
         {
             successHandler : function ( data )
             {
-                $( "#login" ).val( data.response.login );
-                $( "#firstname" ).val( data.response.firstName );
-                $( "#lastname" ).val( data.response.lastName );
-                $( "#email" ).val( data.response.email );
-                $( "#telephone" ).val( data.response.phoneNumber );
-                $( "#adress" ).val( data.response.adress );
+                $context.find( "#login" ).val( data.response.login );
+                $context.find( "#firstname" ).val( data.response.firstName );
+                $context.find( "#lastname" ).val( data.response.lastName );
+                $context.find( "#fathername" ).val( data.response.fatherName );
+                $context.find( "#email" ).val( data.response.email );
+                $context.find( "#telephone" ).val( data.response.phoneNumber );
+                $context.find( "#adress" ).val( data.response.adress );
+                $context.find( "#identicalCode" ).val( data.response.identationCode );
+                $context.find( "#birthDate" ).val( data.response.birthDate );
+                $context.find( "#pasportNumber" ).val( data.response.passportNumber );
+                $context.find( "#registrationAdress" ).val( data.response.registaration );
+                $context.find( "#homeTelephone" ).val( data.response.homePhoneNumber );
+                $context.find( "#workTelephone" ).val( data.response.workPhoneNumber );
+                $context.find( "#department" ).val( data.response.department );
+                $context.find( "#director" ).val( data.response.director );
+                $context.find( "#shclude" ).val( data.response.schludeOfWork );
+                $context.find( "#startDate" ).val( data.response.startDate );
+                $context.find( "#officialStartDate" ).val( data.response.dateOfFormalArrangment );
                 
                 $context.find( ".profileForm" ).validate( 
                 {
@@ -116,17 +128,77 @@
                             required : true
                         ,    equalTo: "#password"
                         }
+                    ,   fathername : 
+                        {
+                            required : true
+                        }
+                    ,   officialStartDate : 
+                        {
+                            required : true
+                        }
+                    ,   startDate : 
+                        {
+                            required : true
+                        }
+                    ,   shclude : 
+                        {
+                            required : true
+                        }
+                    ,   director : 
+                        {
+                            required : true
+                        }
+                    ,   department : 
+                        {
+                            required : true
+                        }
+                    ,   workTelephone : 
+                        {
+                            required : true
+                        }
+                    ,   homeTelephone : 
+                        {
+                            required : true
+                        }
+                    ,   registrationAdress : 
+                        {
+                            required : true
+                        }
+                    ,   pasportNumber : 
+                        {
+                            required : true
+                        }
+                    ,   birthDate : 
+                        {
+                            required : true
+                        }
+                    ,   identicalCode : 
+                        {
+                            required : true
+                        }
                     }
                 ,   submitHandler : function( form ) 
                     {
-                        var updatedUser = data.response;
-                        updatedUser.adress = $( "#adress" ).val().trim();
-                        updatedUser.email = $( "#email" ).val().trim();
-                        updatedUser.firstName = $( "#firstname" ).val().trim();
-                        updatedUser.lastName = $( "#lastname" ).val().trim();
-                        updatedUser.login = $( "#login" ).val().trim();
-                        updatedUser.phoneNumber = $( "#telephone" ).val().trim();
-                        updatedUser.password = $( "#password" ).val().trim();
+                        var updatedUser                     = data.response;
+                        updatedUser.adress                  = $context.find( "#adress" ).val().trim();
+                        updatedUser.birthDate               = $context.find( "#birthDate" ).val().trim();
+                        updatedUser.dateOfFormalArrangment  = $context.find( "#login" ).val().trim();
+                        updatedUser.department              = $context.find( "#department" ).val().trim();
+                        updatedUser.director                = $context.find( "#director" ).val().trim();
+                        updatedUser.email                   = $context.find( "#email" ).val().trim();
+                        updatedUser.fatherName              = $context.find( "#fathername" ).val().trim();
+                        updatedUser.firstName               = $context.find( "#firstname" ).val().trim();
+                        updatedUser.homePhoneNumber         = $context.find( "#homeTelephone" ).val().trim();
+                        updatedUser.identationCode          = $context.find( "#identicalCode" ).val().trim();
+                        updatedUser.lastName                = $context.find( "#lastname" ).val().trim();
+                        updatedUser.login                   = $context.find( "#login" ).val().trim();
+                        updatedUser.passportNumber          = $context.find( "#pasportNumber" ).val().trim();
+                        updatedUser.password                = $context.find( "#login" ).val().trim();
+                        updatedUser.phoneNumber             = $context.find( "#telephone" ).val().trim();
+                        updatedUser.registaration           = $context.find( "#registrationAdress" ).val().trim();
+                        updatedUser.schludeOfWork           = $context.find( "#shclude" ).val().trim();
+                        updatedUser.startDate               = $context.find( "#startDate" ).val().trim();
+                        updatedUser.workPhoneNumber         = $context.find( "#officialStartDate" ).val().trim();
                         
                         theApp.services.updateUser( 
                         {

@@ -6,8 +6,10 @@ package com.main.services;
 
 import com.main.database.MysqlDataBase;
 import com.main.entities.User;
+import com.main.utils.Utils;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -79,19 +81,11 @@ public class LoginManipulation {
 
     private User getUser(String login) {
         try {
-            String query = "SELECT * FROM barcom_users WHERE barcom_users.login='" + login + "' LIMIT 1;";
+            String query = "SELECT * FROM barcom.barcom_users WHERE `login`='" + login + "'  LIMIT 1;";
             ResultSet result = MysqlDataBase.getInstance().select(query).afterExecution();
             User user = null;
             if (result.next()) {
-                user = new User(result.getInt(1),
-                        result.getString(2),
-                        result.getString(3),
-                        result.getString(4),
-                        result.getString(5),
-                        result.getString(6),
-                        result.getString(7),
-                        result.getString(8),
-                        result.getInt(9));
+                user = Utils.fillUserFromResultSet(result);
             }
             return user;
         } catch (SQLException ex) {

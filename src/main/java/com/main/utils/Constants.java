@@ -9,7 +9,6 @@ package com.main.utils;
  * @author AliekhandroDelRio
  */
 public class Constants {
-    
+
     public static String USER_IMAGE_UPLOAD_PATH = "c://uploadedFiles/";
-    
 }

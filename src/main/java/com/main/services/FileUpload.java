@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.main.entities;
+package com.main.services;
 
 import com.main.utils.Constants;
 import com.sun.jersey.core.header.FormDataContentDisposition;
