@@ -10,7 +10,7 @@
 ;( function( $, context, appName )
 {
     var initialized  = false
-    ,   fragmentName = "usermanagment"
+    ,   fragmentName = "userManagment"
     ,   fragment     = {}
     ,   snippets     = {}
     ,   options      = {}
@@ -68,20 +68,6 @@
         var $context        = $( options.context )
         ;
         
-        $context.find( ".nav-tabs li" ).click( function( e ) 
-        {
-            e.preventDefault();
-            $context.find( ".nav-tabs li" ).removeClass( "active" );
-            $( this ).addClass( "active" );
-        } );
-        
-        $context.find( ".nav-tabs li a" ).click( function( e ) 
-        {
-            e.preventDefault();
-            $context.find( ".nav-tabs li" ).removeClass( "active" );
-            $( this ).parent().addClass( "active" );
-        } );
-        
         theApp.services.getAllUsers( 
         {
             successHandler : function ( data )
@@ -97,7 +83,7 @@
             {
             }
         } );
-//        
+        
         // Use the fragment navigate function to set the correct fragment state
         //
         fragment.navigate( params );
