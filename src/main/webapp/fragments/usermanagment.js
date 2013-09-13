@@ -10,7 +10,7 @@
 ;( function( $, context, appName )
 {
     var initialized  = false
-    ,   fragmentName = "login"
+    ,   fragmentName = "usermanagment"
     ,   fragment     = {}
     ,   snippets     = {}
     ,   options      = {}
@@ -68,43 +68,36 @@
         var $context        = $( options.context )
         ;
         
-        $context.find( "form" ).validate( 
+        $context.find( ".nav-tabs li" ).click( function( e ) 
         {
-            rules : 
+            e.preventDefault();
+            $context.find( ".nav-tabs li" ).removeClass( "active" );
+            $( this ).addClass( "active" );
+        } );
+        
+        $context.find( ".nav-tabs li a" ).click( function( e ) 
+        {
+            e.preventDefault();
+            $context.find( ".nav-tabs li" ).removeClass( "active" );
+            $( this ).parent().addClass( "active" );
+        } );
+        
+        theApp.services.getAllUsers( 
+        {
+            successHandler : function ( data )
             {
-                username : 
+                $.each( data, function( index ) 
                 {
-                    required : true
-                }
-            ,   password : 
-                {
-                    required : true
-                }
+                    // TODO: Build user row.
+                    // 
+                    
+                } );
             }
-        ,   submitHandler : function( form ) 
+        ,   errorHandler   : function ( data ) 
             {
-                theApp.services.login( 
-                {
-                    data : 
-                    {
-                        login       : $( form ).find( "[name=username]" ).val()
-                    ,   password    : $( form ).find( "[name=password]" ).val()
-                    }
-                ,   successHandler : function ( data )
-                    {
-                        $( ".navbar-right" ).removeClass( "hidden" );
-                        $( ".navbar-left" ).removeClass( "hidden" );
-                        $( ".username strong" ).text( data.response.firstName + " " + data.response.lastName );
-                        $( window ).trigger( "buildMenu" );
-                        $.bbq.pushState( { main : "profile" } );
-                    }
-                ,   errorHandler   : function ( data ) 
-                    {
-                    }
-                } ); 
             }
         } );
-
+//        
         // Use the fragment navigate function to set the correct fragment state
         //
         fragment.navigate( params );
@@ -116,4 +109,5 @@
     // Expose the fragment (html and js names must match)
     //
     theApp.fragments.registerFragment( fragmentName, fragment );
+    
 } )( jQuery, window, "barcom" );

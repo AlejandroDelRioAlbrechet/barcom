@@ -41,8 +41,8 @@ public class User {
     @JsonProperty("registaration")
     private String registaration;
     
-    @JsonProperty("roleId")
-    private int roleId;
+    @JsonProperty("moduleAccess")
+    private String moduleAccess;
     
     @JsonProperty("fatherName")
     private String fatherName;
@@ -77,10 +77,10 @@ public class User {
     @JsonProperty("birthDate")
     private String birthDate;
 
-    @JsonProperty("birthDate")
+    @JsonProperty("imagePath")
     private String imagePath; 
-    
-    public User(int id, String login, String password, String firstName, String lastName, String email, String phoneNumber, String adress, String registaration, int roleId, String fatherName, String passportNumber, String homePhoneNumber, int identationCode, String workPhoneNumber, String department, String director, String schludeOfWork, String startDate, String dateOfFormalArrangment, String birthDate) {
+
+    public User(int id, String login, String password, String firstName, String lastName, String email, String phoneNumber, String adress, String registaration, String moduleAccess, String fatherName, String passportNumber, String homePhoneNumber, int identationCode, String workPhoneNumber, String department, String director, String schludeOfWork, String startDate, String dateOfFormalArrangment, String birthDate, String imagePath) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -90,7 +90,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.adress = adress;
         this.registaration = registaration;
-        this.roleId = roleId;
+        this.moduleAccess = moduleAccess;
         this.fatherName = fatherName;
         this.passportNumber = passportNumber;
         this.homePhoneNumber = homePhoneNumber;
@@ -102,6 +102,7 @@ public class User {
         this.startDate = startDate;
         this.dateOfFormalArrangment = dateOfFormalArrangment;
         this.birthDate = birthDate;
+        this.imagePath = imagePath;
     }
     
     public User() {
@@ -159,10 +160,6 @@ public class User {
         this.adress = adress;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
     public String getLogin() {
         return login;
     }
@@ -189,10 +186,6 @@ public class User {
 
     public String getAdress() {
         return adress;
-    }
-
-    public int getRoleId() {
-        return roleId;
     }
 
     public String getFatherName() {
@@ -283,35 +276,44 @@ public class User {
         this.dateOfFormalArrangment = dateOfFormalArrangment;
     }
 
+    public String getModuleAccess() {
+        return moduleAccess;
+    }
+
+    public void setModuleAccess(String moduleAccess) {
+        this.moduleAccess = moduleAccess;
+    }
+
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", adress=" + adress + ", registaration=" + registaration + ", roleId=" + roleId + ", fatherName=" + fatherName + ", passportNumber=" + passportNumber + ", homePhoneNumber=" + homePhoneNumber + ", identationCode=" + identationCode + ", workPhoneNumber=" + workPhoneNumber + ", department=" + department + ", director=" + director + ", schludeOfWork=" + schludeOfWork + ", startDate=" + startDate + ", dateOfFormalArrangment=" + dateOfFormalArrangment + ", birthDate=" + birthDate + '}';
+        return "User{" + "id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", adress=" + adress + ", registaration=" + registaration + ", moduleAccess=" + moduleAccess + ", fatherName=" + fatherName + ", passportNumber=" + passportNumber + ", homePhoneNumber=" + homePhoneNumber + ", identationCode=" + identationCode + ", workPhoneNumber=" + workPhoneNumber + ", department=" + department + ", director=" + director + ", schludeOfWork=" + schludeOfWork + ", startDate=" + startDate + ", dateOfFormalArrangment=" + dateOfFormalArrangment + ", birthDate=" + birthDate + ", imagePath=" + imagePath + '}';
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 29 * hash + this.id;
-        hash = 29 * hash + (this.login != null ? this.login.hashCode() : 0);
-        hash = 29 * hash + (this.password != null ? this.password.hashCode() : 0);
-        hash = 29 * hash + (this.firstName != null ? this.firstName.hashCode() : 0);
-        hash = 29 * hash + (this.lastName != null ? this.lastName.hashCode() : 0);
-        hash = 29 * hash + (this.email != null ? this.email.hashCode() : 0);
-        hash = 29 * hash + (this.phoneNumber != null ? this.phoneNumber.hashCode() : 0);
-        hash = 29 * hash + (this.adress != null ? this.adress.hashCode() : 0);
-        hash = 29 * hash + (this.registaration != null ? this.registaration.hashCode() : 0);
-        hash = 29 * hash + this.roleId;
-        hash = 29 * hash + (this.fatherName != null ? this.fatherName.hashCode() : 0);
-        hash = 29 * hash + (this.passportNumber != null ? this.passportNumber.hashCode() : 0);
-        hash = 29 * hash + (this.homePhoneNumber != null ? this.homePhoneNumber.hashCode() : 0);
-        hash = 29 * hash + this.identationCode;
-        hash = 29 * hash + (this.workPhoneNumber != null ? this.workPhoneNumber.hashCode() : 0);
-        hash = 29 * hash + (this.department != null ? this.department.hashCode() : 0);
-        hash = 29 * hash + (this.director != null ? this.director.hashCode() : 0);
-        hash = 29 * hash + (this.schludeOfWork != null ? this.schludeOfWork.hashCode() : 0);
-        hash = 29 * hash + (this.startDate != null ? this.startDate.hashCode() : 0);
-        hash = 29 * hash + (this.dateOfFormalArrangment != null ? this.dateOfFormalArrangment.hashCode() : 0);
-        hash = 29 * hash + (this.birthDate != null ? this.birthDate.hashCode() : 0);
+        hash = 79 * hash + this.id;
+        hash = 79 * hash + (this.login != null ? this.login.hashCode() : 0);
+        hash = 79 * hash + (this.password != null ? this.password.hashCode() : 0);
+        hash = 79 * hash + (this.firstName != null ? this.firstName.hashCode() : 0);
+        hash = 79 * hash + (this.lastName != null ? this.lastName.hashCode() : 0);
+        hash = 79 * hash + (this.email != null ? this.email.hashCode() : 0);
+        hash = 79 * hash + (this.phoneNumber != null ? this.phoneNumber.hashCode() : 0);
+        hash = 79 * hash + (this.adress != null ? this.adress.hashCode() : 0);
+        hash = 79 * hash + (this.registaration != null ? this.registaration.hashCode() : 0);
+        hash = 79 * hash + (this.moduleAccess != null ? this.moduleAccess.hashCode() : 0);
+        hash = 79 * hash + (this.fatherName != null ? this.fatherName.hashCode() : 0);
+        hash = 79 * hash + (this.passportNumber != null ? this.passportNumber.hashCode() : 0);
+        hash = 79 * hash + (this.homePhoneNumber != null ? this.homePhoneNumber.hashCode() : 0);
+        hash = 79 * hash + this.identationCode;
+        hash = 79 * hash + (this.workPhoneNumber != null ? this.workPhoneNumber.hashCode() : 0);
+        hash = 79 * hash + (this.department != null ? this.department.hashCode() : 0);
+        hash = 79 * hash + (this.director != null ? this.director.hashCode() : 0);
+        hash = 79 * hash + (this.schludeOfWork != null ? this.schludeOfWork.hashCode() : 0);
+        hash = 79 * hash + (this.startDate != null ? this.startDate.hashCode() : 0);
+        hash = 79 * hash + (this.dateOfFormalArrangment != null ? this.dateOfFormalArrangment.hashCode() : 0);
+        hash = 79 * hash + (this.birthDate != null ? this.birthDate.hashCode() : 0);
+        hash = 79 * hash + (this.imagePath != null ? this.imagePath.hashCode() : 0);
         return hash;
     }
 
@@ -351,7 +353,7 @@ public class User {
         if ((this.registaration == null) ? (other.registaration != null) : !this.registaration.equals(other.registaration)) {
             return false;
         }
-        if (this.roleId != other.roleId) {
+        if ((this.moduleAccess == null) ? (other.moduleAccess != null) : !this.moduleAccess.equals(other.moduleAccess)) {
             return false;
         }
         if ((this.fatherName == null) ? (other.fatherName != null) : !this.fatherName.equals(other.fatherName)) {
@@ -378,13 +380,16 @@ public class User {
         if ((this.schludeOfWork == null) ? (other.schludeOfWork != null) : !this.schludeOfWork.equals(other.schludeOfWork)) {
             return false;
         }
-        if (this.startDate != other.startDate && (this.startDate == null || !this.startDate.equals(other.startDate))) {
+        if ((this.startDate == null) ? (other.startDate != null) : !this.startDate.equals(other.startDate)) {
             return false;
         }
-        if (this.dateOfFormalArrangment != other.dateOfFormalArrangment && (this.dateOfFormalArrangment == null || !this.dateOfFormalArrangment.equals(other.dateOfFormalArrangment))) {
+        if ((this.dateOfFormalArrangment == null) ? (other.dateOfFormalArrangment != null) : !this.dateOfFormalArrangment.equals(other.dateOfFormalArrangment)) {
             return false;
         }
-        if (this.birthDate != other.birthDate && (this.birthDate == null || !this.birthDate.equals(other.birthDate))) {
+        if ((this.birthDate == null) ? (other.birthDate != null) : !this.birthDate.equals(other.birthDate)) {
+            return false;
+        }
+        if ((this.imagePath == null) ? (other.imagePath != null) : !this.imagePath.equals(other.imagePath)) {
             return false;
         }
         return true;

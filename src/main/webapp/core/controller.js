@@ -34,21 +34,45 @@
                         
     var modules = 
         {
-            userManagment : { url : "user-managment", name : "Керування користувачами" }
+            userManagment : { url : "#main=usermanagment", name : "Керування користувачами" }
+        ,   departmentManagment : { url: "#main=managedepartment", name: "Керування департаментами" }
         };
-                        
+    
+    controller.buildMenu = function( moduleAccess ) 
+    {
+        var modulesForWhichUserHasAccess = moduleAccess.split( "|" )
+        ,   $menuItem = $( ".snippets .menuItem" ).remove()
+        ;
+        
+        $.each( modulesForWhichUserHasAccess, function( index ) 
+        {
+            var menuItem = $menuItem.clone()
+            ,   module = modules[ this ]
+            ;
+            menuItem.find( "a" ).attr( "href", module.url ).text( module.name );
+            $( ".navbar-nav.navbar-left" ).append( menuItem );
+        } );
+    };
+    
     $( document ).ready( function()
     {
+        $( window ).bind( "buildMenu", function() 
+        {
+            controller.buildMenu( theApp.cache.getUser().moduleAccess );
+        } );
+        
         theApp.services.getUser( 
         {
             successHandler : function ( data )
             {
                 $( window ).trigger( "hashchange" );
-                $( ".navbar-right, .navbar-left" ).removeClass( "hidden" );
-                $( ".username strong" ).text( data.response.firstName + " " + data.response.lastName );
                 
                 if ( data.response )
                 {
+                    $( ".navbar-right, .navbar-left" ).removeClass( "hidden" );
+                    $( ".username strong" ).text( data.response.firstName + " " + data.response.lastName );
+                    controller.buildMenu( data.response.moduleAccess );
+                    
                     if ( !$.bbq.getState( "main" ) ) 
                     {
                         $.bbq.pushState( { main : "profile" } );
@@ -82,6 +106,7 @@
                 successHandler : function ( data )
                 {
                     $( ".navbar-right, .navbar-left" ).addClass( "hidden" );
+                    theApp.cache.storeUser( null );
                     $.bbq.pushState( { main : "login" } );
                 }
             ,   errorHandler   : function ( data ) 
@@ -118,7 +143,11 @@
                 controller._loadContent( ".innerContent", main );
             break;
             
-            case "userManagment":
+            case "usermanagment":
+                controller._loadContent( ".innerContent", main );
+            break;
+            
+            case "managedepartment":
                 controller._loadContent( ".innerContent", main );
             break;
             

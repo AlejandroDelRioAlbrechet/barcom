@@ -29,6 +29,7 @@
         ,   data:   JSON.stringify( options.data )
         ,   success: function( data, status, xhr )
             {
+                theApp.cache.storeUser( data );
                 options.successHandler( { response: data, xhr: xhr } );
             }
         ,   error: function( xhr, status, error )
@@ -141,6 +142,30 @@
         ,   success: function( data, status, xhr )
             {
                 theApp.cache.storeUsers( data );
+                options.successHandler( { response: data, xhr: xhr } );
+            }
+        ,   error: function( xhr, status, error )
+            {
+                options.errorHandler( { status : status, xhr: xhr } );
+            }
+        ,   contentType: "application/json"
+        } );
+    };
+    
+    services.getAllDepartments = function( params ) 
+    {
+        var options = $.extend(
+        {
+            successHandler: function(){},
+            errorHandler:   function(){},
+        }, params );
+        
+        $.ajax(
+        {
+            type:   "GET"
+        ,   url:    "rest/department/"
+        ,   success: function( data, status, xhr )
+            {
                 options.successHandler( { response: data, xhr: xhr } );
             }
         ,   error: function( xhr, status, error )

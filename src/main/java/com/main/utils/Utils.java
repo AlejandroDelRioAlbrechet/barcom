@@ -5,7 +5,6 @@
 package com.main.utils;
 
 import com.main.entities.User;
-import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -29,7 +28,7 @@ public class Utils {
             user.setPhoneNumber(result.getString(7));//phoneNumber
             user.setAdress(result.getString(9));// adress 
             user.setRegistaration(result.getString(8));// registration 
-            user.setRoleId(result.getInt(10)); // role_id
+            user.setModuleAccess(result.getString(10)); // role_id
             user.setFatherName(result.getString(11)); // fatherName
             user.setPassportNumber(result.getString(12));// passportNumber 
             user.setHomePhoneNumber(result.getString(13));// homePhoneNumber 
