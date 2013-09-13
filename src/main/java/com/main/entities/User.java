@@ -77,6 +77,9 @@ public class User {
     @JsonProperty("birthDate")
     private String birthDate;
 
+    @JsonProperty("birthDate")
+    private String imagePath; 
+    
     public User(int id, String login, String password, String firstName, String lastName, String email, String phoneNumber, String adress, String registaration, int roleId, String fatherName, String passportNumber, String homePhoneNumber, int identationCode, String workPhoneNumber, String department, String director, String schludeOfWork, String startDate, String dateOfFormalArrangment, String birthDate) {
         this.id = id;
         this.login = login;
@@ -104,6 +107,14 @@ public class User {
     public User() {
     }
 
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    
     public int getId() {
         return id;
     }

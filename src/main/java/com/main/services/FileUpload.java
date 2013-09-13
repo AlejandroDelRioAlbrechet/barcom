@@ -4,6 +4,7 @@
  */
 package com.main.services;
 
+import com.main.database.MysqlDataBase;
 import com.main.utils.Constants;
 import com.sun.jersey.core.header.FormDataContentDisposition;
 import com.sun.jersey.multipart.FormDataParam;
@@ -27,23 +28,23 @@ import javax.ws.rs.core.Response;
  */
 @Path("/file-upload")
 public class FileUpload {
-    
+
     @POST
     @Path("/user-image/{userId}")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
-    public Response uploadUserImage(
-            @FormDataParam("file") InputStream uploadedInputStream,
-            @FormDataParam("file") FormDataContentDisposition fileDetail, @PathParam("userId") String userId) {
+    public Response uploadUserImage(@FormDataParam("file") InputStream uploadedInputStream,
+            @FormDataParam("file") FormDataContentDisposition fileDetail,
+            @PathParam("userId") String userId) {
         String fileType = fileDetail.getFileName().substring(fileDetail.getFileName().indexOf("."), fileDetail.getFileName().length());
-        String uploadedFileLocation = Constants.USER_IMAGE_UPLOAD_PATH + File.separator + userId + fileType;
+        String path = Constants.USER_IMAGE_UPLOAD_PATH.substring(0, Constants.USER_IMAGE_UPLOAD_PATH.length() - 1); 
+        String uploadedFileLocation = path + File.separator + userId + fileType;
 
         // save it
         saveToFile(uploadedInputStream, uploadedFileLocation);
 
-        String output = "File uploaded via Jersey based RESTFul Webservice to: " + uploadedFileLocation;
-
-        return Response.status(200).entity(output).build();
-
+        String query = "UPDATE `barcom_users` SET `image_path`='http://185.25.116.185/files/" + userId + fileType + "' WHERE  `id`=" + userId + " LIMIT 1;";
+        MysqlDataBase.getInstance().update(query);
+        return Response.status(200).entity("http://185.25.116.185/files/" + userId + fileType).build();
     }
 
     // save uploaded file to new location

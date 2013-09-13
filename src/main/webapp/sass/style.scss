@@ -39,3 +39,5 @@ table { border-collapse: collapse; }
 }
 
 input[type="range"].form-control { margin-left: 10px; width: auto; height: auto; padding: 0; font-size: 0; line-height: auto; vertical-align: middle; background-color: #ffffff; border: none; border-radius: 4px; @include box-shadow( none ); }
+
+#profile .highlight img { width: 100%; @include border-radius( 4px ); @include single-box-shadow; }

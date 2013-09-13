@@ -74,6 +74,11 @@
             {
                 
                 $context.find( ".userImage" ).attr( "action", "rest/file-upload/user-image/" + data.response.id );
+
+                if ( data.response.imagePath ) 
+                {
+                    $(  ".highlight img" ).removeClass( "hidden" ).attr( "src", data.response.imagePath );
+                }
                 
                 $context.find( "#login" ).val( data.response.login );
                 $context.find( "#firstname" ).val( data.response.firstName );
@@ -170,9 +175,9 @@
                         {
                             success : function( responseText, statusText, xhr, $form )
                             {
-                                console.log( responseText, statusText, xhr, $form );
                                 // TODO: SHOW USER IMAGE
                                 //
+                                $(  ".highlight img" ).attr( "src", responseText );
                             }
                         } );
                     }
