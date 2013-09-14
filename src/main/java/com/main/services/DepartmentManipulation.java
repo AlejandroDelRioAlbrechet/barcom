@@ -74,7 +74,7 @@ public class DepartmentManipulation {
                 departments.add(new Department(result.getInt(1), result.getString(2), result.getString(3), result.getString(4)));
             }
         } catch (SQLException ex) {
-            Logger.getLogger(RoleManipilation.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DepartmentManipulation.class.getName()).log(Level.SEVERE, null, ex);
         }
         return departments;
     }
