@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
-    <body>
+    <body data-twttr-rendered="true">
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <div class="container">
                 <div class="navbar-header">
@@ -19,11 +19,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Барком</a>
+                    <a class="navbar-brand" href="#main=profile">Барком</a>
                 </div>
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <ul class="nav navbar-nav navbar-left hidden">
-                        
+
                     </ul>
                     <ul class="nav navbar-nav navbar-right hidden">
                         <li>
@@ -40,15 +40,44 @@
             </div>
         </nav>
         <div class="container innerContent">
-            
+
         </div>
-        
+
+        <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Modal title</h4>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Відмінити</button>
+                        <button type="button" class="btn btn-primary">Ok</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div id="infoModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3>Heading</h3>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-loading-text="ok">OK</button>
+            </div>
+        </div>
+
         <div class="snippets">
-             <li class="menuItem">
+            <li class="menuItem">
                 <a href="#"></a>
             </li>
         </div>
-        
+
         <!--@@js-dev-start@@ -->
         <!-- jQuery itself is loaded from Google CDN -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
@@ -57,7 +86,7 @@
             window.jQuery || document.write("<script src='lib/jquery-1.8.3.min.js'>\x3C/script>")
             //--><!]]>
         </script>
-        
+
         <!-- Library includes -->
         <script src="lib/bootstrap/bootstrap.min.js"></script>
         <script src="lib/context.js"></script>
@@ -70,9 +99,10 @@
         <script src="lib/jquery.ba-bbq.js"></script>
         <script src="lib/jquery.form.js"></script>
         <script src="lib/moment.min.js"></script>
-        
+
         <!-- Project code includes -->
         <script src="core/debug.js"></script>
+        <script src="core/modals.js"></script>
         <script src="core/utils.js"></script>
         <script src="core/cache.js"></script>
         <script src="core/services.js"></script>

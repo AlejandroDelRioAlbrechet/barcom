@@ -31,7 +31,7 @@ public class MysqlDataBase implements IDBModel {
         }
         return instance;
     }
-    
+
     private Connection createConnection() {
         try {
             Properties prop = new Properties();
@@ -54,7 +54,7 @@ public class MysqlDataBase implements IDBModel {
         }
         return null;
     }
-    
+
     @Override
     public Executable select(String query) {
         try {
@@ -63,14 +63,25 @@ public class MysqlDataBase implements IDBModel {
         } catch (Exception e) {
             Logger.getLogger(MysqlDataBase.class.getName()).log(Level.SEVERE, null, e);
             return null;
-        } 
+        }
     }
 
     @Override
-    public Executable insert(String query) {
+    public Executable insert(String query, String... params) {
         try {
-            createConnection().createStatement().executeUpdate(query);
-            return new Exec(null);
+            Connection con = createConnection();
+            PreparedStatement statement = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
+            for (int i = 0; i < params.length; i++) {
+                int number = i + 1;
+                statement.setString(number, params[i]);
+            }
+            statement.executeUpdate();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                return new Exec(generatedKeys.getInt(1));
+            }
+            con.close();
+            statement.close();
         } catch (SQLException ex) {
             Logger.getLogger(MysqlDataBase.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -87,7 +98,7 @@ public class MysqlDataBase implements IDBModel {
         }
         return null;
     }
-    
+
     @Override
     public Executable remove(String query) {
         try {

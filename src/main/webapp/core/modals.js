@@ -9,163 +9,141 @@
 ;( function( $, context, appName )
 {
     var theApp          = $.getAndCreateContext( appName, context )
-    ,   onCloseDialog   = null
-
-    // The modal dialog trigger elements
-    //
-    ,   $alert      = $( "<a href='#alert'  rel='#iqModalAlert'></a>"  )
-    ,   $confirm    = $( "<a href='#choice' rel='#iqModalChoice'></a>" )
     ;
 
-    // Add default modal settings but don't override existing values
-    //
-    theApp.settings = $.extend( {   dialogMask: {
-                                        color:          "#333"
-                                    ,   loadSpeed:      100
-                                    ,   opacity:        0.7
-                                    }
-                                ,   dialogSettings: {
-                                        fixed:          false
-                                    ,   top:            "10%"
-                                    ,   closeOnClick:   false
-                                    }
-                                }, ( theApp.settings || {} ) );
-
-    // Create the overlays
-    //
-    $( document ).ready( function()
+    theApp.popupInfo = function( params )
     {
-        $alert.overlay(
+        if ( !params ) {return;}
+        
+        var $modal = $( "#infoModal" );
+        
+        var options = $.extend(
         {
-            close:        "> .close, [href$='#close']"
-        ,   mask:         theApp.settings.dialogMask
-        ,   top:          theApp.settings.dialogSettings.top
-        ,   fixed:        theApp.settings.dialogSettings.fixed
-        ,   closeOnClick: theApp.settings.dialogSettings.closeOnClick
-        ,   onClose:      function()
-                          {
-                              if ( $.isFunction( onCloseDialog ) )
-                              {
-                                  onCloseDialog();
-                              }
-                              onCloseDialog = null;
-                          }
+            title: "Make a choice",
+            content: "",
+            width: 500
+        }, params );
+        
+        $modal.css( "width", options.width + "px" );
+        $modal.find( ".modal-header h3" ).text( options[ "title"   ] || "Make a choice" );
+        $modal.find( ".modal-body"      ).html( options[ "content" ] || "No text available" );
+        
+        // Setup event handler for yes/no click
+        //
+        $modal.find( ".modal-footer .btn-primary" ).unbind( "click" ).bind( "click", function( e )
+        {
+            e.preventDefault();
+            
+            $modal.modal( 'hide' );
         } );
 
-        $confirm.overlay(
-        {
-            close:        "> .close, [href$='#close']"
-        ,   mask:         theApp.settings.dialogMask
-        ,   top:          theApp.settings.dialogSettings.top
-        ,   fixed:        theApp.settings.dialogSettings.fixed
-        ,   closeOnClick: theApp.settings.dialogSettings.closeOnClick
-        ,   onClose:      function()
-                          {
-                              if ( $.isFunction( onCloseDialog ) )
-                              {
-                                  onCloseDialog();
-                              }
-                              onCloseDialog = null;
-                          }
-        } );
-
-        // Disable default link behaviour
-        //
-        $( "#iqModalAlert [href$='#close'], #iqModalChoice [href$='#close']" ).click( function( e ){e.preventDefault();} );
-    } );
-
-    theApp.alert = function( params )
-    {
-        if ( !params ) { return; }
-
-        $( "#iqModalAlert .heading" ).text( params[ "title"   ] || "Notice" );
-        $( "#iqModalAlert .content" ).text( params[ "message" ] || "Something bad happened" );
-
-        // Check if the overlay has been created
-        //
-        if ( $alert.data( "overlay" ) )
-        {
-            // Check if a modal is active
-            // If so then que this dialog using the onCloseDialog support
-            //
-            if ( _isModalActive() )
-            {
-                onCloseDialog = function() { $alert.data( "overlay" ).load() };
-                _closeModals();
-            }
-            else
-            {
-                $alert.data( "overlay" ).load();
-            }
-        }
-        else
-        {
-            // Fallback to default alert dialog
-            //
-            alert( params[ "message" ] || "Something bad happened" );
-        }
+        $modal.modal( 'show' );
     };
 
     theApp.confirm = function( params )
     {
-        if ( !params ) { return; }
-
-        $( "#iqModalChoice .heading" ).text( params[ "title"   ] || "Please choose" );
-        $( "#iqModalChoice .content" ).text( params[ "message" ] || "Are you sure?" );
-
+        if ( !params ) {return;}
+        
+        var $modal = $( "#confirmModal" );
+        
+        var options = $.extend(
+        {
+            title: "Make a choice",
+            content: "",
+            width: 500
+        }, params );
+        
+        $modal.css( "width", options.width + "px" );
+        $modal.find( ".btn-primary"     ).text( options[ "yes" ] || "Save"  ).button();
+        $modal.find( ".btn-cancel"      ).text( options[ "no"  ] || "Cancel" );
+        $modal.find( ".modal-header h3" ).text( options[ "title"   ] || "Make a choice" );
+        $modal.find( ".modal-body"      ).html( options[ "content" ] || "No text available" );
+        $modal.find( ".modal-footer .btn-primary" ).removeAttr( 'disabled' ).removeClass( 'disabled' );
+        $modal.unbind( 'hidden' ).on( 'hidden', options[ 'afterHide' ] );
+        
+        $modal.unbind( 'shown' ).on( 'shown', function(  ) 
+        {
+            $( '.modal-backdrop' ).each( function( index ) 
+            {
+                if( $( '.modal-backdrop' ).size(  ) > 1 ) 
+                {
+                    $( this ).hide(  ).remove(  );
+                }
+            } );
+        } );
+        
         // Setup event handler for yes/no click
         //
-        $( "#iqModalChoice [href$='#yes'], #iqModalChoice [href$='#no']" )
-            .unbind( "click" )
-            .bind( "click", function( e )
-            {
-                e.preventDefault();
-
-                if ( $.isFunction( params[ "callback" ] ) )
-                {
-                    params.callback( $( this ).attr( "href" ).match( "#yes" ) ? true : false );
-                }
-
-                $( "#iqModalChoice [href$='#yes'], #iqModalChoice [href$='#no']" ).unbind( "click" );
-                $confirm.data( "overlay" ).close();
-            } );
-
-        // Check if the overlay has been created
-        //
-        if ( $confirm.data( "overlay" ) )
+        $modal.find( ".modal-footer .btn-primary" ).unbind( "click" ).bind( "click", function( e )
         {
-            if ( _isModalActive() )
-            {
-                onCloseDialog = function() { $confirm.data( "overlay" ).load() };
-                _closeModals();
-            }
-            else
-            {
-                $confirm.data( "overlay" ).load();
-            }
-        }
-        else
-        {
-            // Fallback to default confirm dialog
-            //
-            // Not usefull to call confirm without a callback
-            //
+            e.preventDefault();
+            
+            $modal.find( ".modal-footer .btn-primary" ).button( 'loading' );
+
             if ( $.isFunction( params[ "callback" ] ) )
             {
-                params.callback( confirm( params[ "message" ] || "Are you sure?" ) );
+                params.callback( $( this ).attr( "class" ).match( "btn-primary" ) ? true : false, function(  ) 
+                {
+                    $modal.find( ".modal-footer .btn-primary" ).button( 'complete' );                
+                    $modal.modal( 'hide' );
+                    $modal.find( ".modal-footer .btn-primary" ).unbind( "click" );   
+                });                
             }
-        }
+        } );
+
+        $modal.modal( 'show' );
     };
-
-    function _isModalActive()
+    
+    theApp.popup = function( params )
     {
-        return $confirm.data( "overlay" ).isOpened() ||
-               $alert.data(   "overlay" ).isOpened();
-    }
+        if ( !params ) {return;}
+        
+        var $modal = $( "#confirmModal" );
+        
+        var options = $.extend(
+        {
+            title: "Make a choice"
+        ,   content: ""
+        }, params );
+        
+        $modal.find( ".btn-primary"     ).text( options[ "yes" ] || "Save"  ).button();
+        $modal.find( ".btn-cancel"      ).text( options[ "no"  ] || "Cancel" );
+        $modal.find( ".modal-header h4" ).text( options[ "title"   ] || "Make a choice" );
+        $modal.find( ".modal-body"      ).html( options[ "content" ] || "No text available" );
+        $modal.find( ".modal-footer .btn-primary" ).removeAttr( 'disabled' ).removeClass( 'disabled' );
+        $modal.unbind( 'hidden' ).on( 'hidden', options[ 'afterHide' ] );
+        
+        $modal.unbind( 'shown' ).on( 'shown', function(  ) 
+        {
+            $( '.modal-backdrop' ).each( function( index ) 
+            {
+                if( $( '.modal-backdrop' ).size(  ) > 1 ) 
+                {
+                    $( this ).hide(  ).remove(  );
+                }
+            } );
+        } );
+        
+        // Setup event handler for yes/no click
+        //
+        $modal.find( ".modal-footer .btn-primary" ).unbind( "click" ).bind( "click", function( e )
+        {
+            e.preventDefault();
+            
+            $modal.find( ".modal-footer .btn-primary" ).button( 'loading' );
 
-    function _closeModals()
-    {
-        $confirm.data( "overlay" ).close();
-        $alert.data(   "overlay" ).close();
-    }
+            if ( $.isFunction( params[ "callback" ] ) )
+            {
+                params.callback( $( this ).attr( "class" ).match( "btn-primary" ) ? true : false, function(  ) 
+                {
+                    $modal.find( ".modal-footer .btn-primary" ).button( 'complete' );                
+                    $modal.modal( 'hide' );
+                    $modal.find( ".modal-footer .btn-primary" ).unbind( "click" );   
+                });                
+            }
+        } );
+
+        $modal.modal( { show: true, backdrop: false } );
+    };
+    
 } )( jQuery, window, "barcom" );

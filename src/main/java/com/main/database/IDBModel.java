@@ -12,7 +12,7 @@ public interface IDBModel {
     
     Executable select(String query);
     
-    Executable insert(String query);
+    Executable insert(String query, String... params);
     
     Executable update(String query);
     

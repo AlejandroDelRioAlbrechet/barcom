@@ -35,33 +35,37 @@ public class UserManipulation {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public User createUser(User newUser) {
-        String query = "INSERT INTO `barcom_users` (`login`, `password`, `first_name`, "
-                + "`last_name`, `email`, `phone_number`, `registration`, `adress`,"
-                + "`role_id`, `father_name`, `passport_number`, `home_phone_number`, "
-                + "`indentation_code`, `work_phone_number`, `department`, `director`, "
-                + "`schlude_of_work`, `start_date_of_work`, "
-                + "`date_of_formal_arrangement`, `birth_date`) "
-                + "VALUES ('" + newUser.getLogin() 
-                + "', '" + newUser.getPassword() 
-                + "', '" + newUser.getFirstName() 
-                + "', '" + newUser.getLastName() 
-                + "', " + "'" + newUser.getEmail() 
-                + "', '" + newUser.getPhoneNumber() 
-                + "', '" + newUser.getRegistaration() 
-                + "', '" + newUser.getAdress() 
-                + "', 1, '" + newUser.getFatherName() 
-                + "', '" + newUser.getPassportNumber() 
-                + "', '" + newUser.getHomePhoneNumber() 
-                + "', " + newUser.getIdentationCode() 
-                + ", '" + newUser.getWorkPhoneNumber() 
-                + "', '" + newUser.getDepartment() 
-                + "', '" + newUser.getDirector() 
-                + "', " + "'" + newUser.getSchludeOfWork() 
-                + "', '" + newUser.getStartDate() 
-                + "', '" + newUser.getDateOfFormalArrangment() 
-                + "', '" + newUser.getBirthDate() + "');";
+        String[] params = new String[] {
+            newUser.getLogin(), 
+            newUser.getPassword(), 
+            newUser.getFirstName(), 
+            newUser.getLastName(), 
+            newUser.getEmail(), 
+            newUser.getPhoneNumber(),
+            newUser.getRegistaration(),
+            newUser.getAdress(), 
+            "wery",
+            newUser.getFatherName(),
+            newUser.getPassportNumber(),
+            newUser.getHomePhoneNumber(),
+            "" + newUser.getIdentationCode(),
+            newUser.getWorkPhoneNumber(),
+            newUser.getDepartment(),
+            newUser.getDirector(), 
+            newUser.getSchludeOfWork(),
+            newUser.getStartDate(),
+            newUser.getDateOfFormalArrangment(),
+            newUser.getBirthDate()
+        };
+        String query = "INSERT INTO barcom_users (login, password, first_name, "
+                + "last_name, email, phone_number, registration, adress, "
+                + "module_access, father_name, passport_number, home_phone_number, "
+                + "indentation_code, work_phone_number, department, director, "
+                + "schlude_of_work, start_date_of_work, "
+                + "date_of_formal_arrangement, birth_date) "
+                + "VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?, ?, ?, ?);";
 
-        MysqlDataBase.getInstance().insert(query);
+        newUser.setId(MysqlDataBase.getInstance().insert(query, params).afterInsert());
         return newUser;
     }
 

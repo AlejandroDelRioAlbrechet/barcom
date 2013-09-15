@@ -35,7 +35,7 @@
     var modules = 
         {
             userManagment : { url : "#main=usermanagment", name : "Керування користувачами" }
-        ,   departmentManagment : { url: "#main=managedepartment", name: "Керування департаментами" }
+        ,   manageDepartments : { url: "#main=managedepartments", name: "Керування департаментами" }
         };
     
     controller.buildMenu = function( moduleAccess ) 
@@ -50,7 +50,23 @@
             ,   module = modules[ this ]
             ;
             menuItem.find( "a" ).attr( "href", module.url ).text( module.name );
+            
+            menuItem.click( function( e ) 
+            {
+                $( ".navbar-nav.navbar-left li" ).removeClass( "active" );
+                $( this ).addClass( "active" );
+            } );
+            
             $( ".navbar-nav.navbar-left" ).append( menuItem );
+        } );
+        
+        $( ".navbar-nav.navbar-left a" ).each( function( index ) 
+        {
+            var tab = $( this ).attr( "href" ).substr( $( this ).attr( "href" ).indexOf( "=" ) + 1, $( this ).attr( "href" ).length );
+            if ( tab === $.bbq.getState( "main" ) ) 
+            {
+                $( this ).parent().addClass( "active" );
+            }
         } );
     };
     
@@ -132,29 +148,37 @@
         // switch/case will sort you out
         //
         var main = $.bbq.getState( "main" );
-        
-        switch( main )
+
+        if ( main === "profile" || checkIfHasAccess( main ) ) 
         {
-            case "login":
-                controller._loadContent( ".innerContent", main );
-            break;
-            
-            case "profile":
-                controller._loadContent( ".innerContent", main );
-            break;
-            
-            case "usermanagment":
-                controller._loadContent( ".innerContent", main );
-            break;
-            
-            case "managedepartment":
-                controller._loadContent( ".innerContent", main );
-            break;
-            
-            default:
-                controller._loadContent( ".innerContent", "login" );
-            break;
+            switch( main )
+            {
+                case "login":
+                    controller._loadContent( ".innerContent", main );
+                break;
+
+                case "profile":
+                    controller._loadContent( ".innerContent", main );
+                break;
+
+                case "usermanagment":
+                    controller._loadContent( ".innerContent", main );
+                break;
+
+                case "managedepartments":
+                    controller._loadContent( ".innerContent", main );
+                break;
+
+                default:
+                    controller._loadContent( ".innerContent", "login" );
+                break;
+            }
         }
+        else 
+        {
+            controller._loadContent( ".innerContent", "noaccess" );
+        }
+        
     } );
 
     // A handy function for creating unique application id's
@@ -222,7 +246,7 @@
                 }
             } );
         }
-    }
+    };
 
     // Reuasble operations performed on newly loaded content
     //
@@ -277,5 +301,20 @@
             $context.find( "[autofocus]" ).first().focus();
         }
     };
+    
+    function checkIfHasAccess( tab ) 
+    {
+        var hasAccess = false;
+        $.each( modules, function( index ) 
+        {
+            var _tab = this.url.substr( this.url.indexOf( "=" ) + 1, this.url.length );  
+            
+            if ( tab === _tab ) 
+            {
+                hasAccess = true;
+            }
+        } );
+        return hasAccess;
+    }
     
 } )( jQuery, window, "barcom" );

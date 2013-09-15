@@ -34,12 +34,14 @@ public class DepartmentManipulation {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Department addDepartment(Department newDepartment) {
-        String query = "INSERT INTO `departments` (`name`, `director`, `contact_info`) VALUES ( '" 
-                + newDepartment.getName() + "', '" 
-                + newDepartment.getDirector() + "', '" 
-                + newDepartment.getContactInfo() + "');";
-        MysqlDataBase.getInstance().insert(query);
-        
+        String query = "INSERT INTO departments (name, director, contact_info) VALUES ( ?, ?, ?);";
+        String[] params = new String[]
+            { 
+                newDepartment.getName(), 
+                newDepartment.getDirector(), 
+                newDepartment.getContactInfo()
+                };
+        newDepartment.setId(MysqlDataBase.getInstance().insert(query, params).afterInsert());
         return newDepartment;
     }
     
@@ -58,7 +60,7 @@ public class DepartmentManipulation {
     
     @DELETE
     @Path("/{departmentId}")
-    public Response removeRole(@PathParam("{departmentId}") String departmentId ) {
+    public Response removeRole(@PathParam("departmentId") String departmentId ) {
         String query = "DELETE FROM `departments` WHERE  `id`=" + departmentId + " LIMIT 1;";
         MysqlDataBase.getInstance().remove(query);
         return Response.status(200).entity("removed").build();

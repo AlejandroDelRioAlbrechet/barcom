@@ -152,7 +152,32 @@
         } );
     };
     
-    services.getAllDepartments = function( params ) 
+    services.updateUser = function( params ) 
+    {
+        var options = $.extend(
+        {
+            successHandler: function(){},
+            errorHandler:   function(){},
+        }, params );
+
+        $.ajax(
+        {
+            type:   "PUT"
+        ,   url:    "rest/user/" + params.userId
+        ,   data:   JSON.stringify( options.data )
+        ,   success: function( data, status, xhr )
+            {
+                options.successHandler( { response: data, xhr: xhr } );
+            }
+        ,   error: function( xhr, status, error )
+            {
+                options.errorHandler( { status : status, xhr: xhr } );
+            }
+        ,   contentType: "application/json"
+        } );
+    };
+    
+     services.getAllDepartments = function( params ) 
     {
         var options = $.extend(
         {
@@ -176,18 +201,67 @@
         } );
     };
     
-    services.updateUser = function( params ) 
+    services.removeDepartment = function( params ) 
     {
         var options = $.extend(
         {
             successHandler: function(){},
             errorHandler:   function(){},
         }, params );
+        
+        $.ajax(
+        {
+            type:   "DELETE"
+        ,   url:    "rest/department/" + options.departmentId
+        ,   success: function( data, status, xhr )
+            {
+                options.successHandler( { response: data, xhr: xhr } );
+            }
+        ,   error: function( xhr, status, error )
+            {
+                options.errorHandler( { status : status, xhr: xhr } );
+            }
+        ,   contentType: "application/json"
+        } );
+    };
+    
+    services.addDepartment = function( params ) 
+    {
+        var options = $.extend(
+        {
+            successHandler: function(){},
+            errorHandler:   function(){},
+        }, params );
+        
+        $.ajax(
+        {
+            type:   "POST"
+        ,   url:    "rest/department/"
+        ,   data :  JSON.stringify( options.data )
+        ,   success: function( data, status, xhr )
+            {
+                options.successHandler( { response: data, xhr: xhr } );
+            }
+        ,   error: function( xhr, status, error )
+            {
+                options.errorHandler( { status : status, xhr: xhr } );
+            }
+        ,   contentType: "application/json"
+        } );
+    };
+    
+    services.updateDepartment = function( params ) 
+    {
+        var options = $.extend(
+        {
+            successHandler: function(){}
+        ,   errorHandler:   function(){},
+        }, params );
 
         $.ajax(
         {
             type:   "PUT"
-        ,   url:    "rest/user/" + params.userId
+        ,   url:    "rest/department/" + params.departmentId
         ,   data:   JSON.stringify( options.data )
         ,   success: function( data, status, xhr )
             {

@@ -12,5 +12,7 @@ import java.sql.ResultSet;
  */
 public interface Executable {
 
+    int afterInsert();
+    
     ResultSet afterExecution();
 }
