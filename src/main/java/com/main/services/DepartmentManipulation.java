@@ -57,7 +57,7 @@ public class DepartmentManipulation {
     }
     
     @DELETE
-    @Path("/{{departmentId}}")
+    @Path("/{departmentId}")
     public Response removeRole(@PathParam("{departmentId}") String departmentId ) {
         String query = "DELETE FROM `departments` WHERE  `id`=" + departmentId + " LIMIT 1;";
         MysqlDataBase.getInstance().remove(query);
