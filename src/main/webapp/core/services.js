@@ -18,8 +18,8 @@
     {
         var options = $.extend(
         {
-            successHandler: function(){},
-            errorHandler:   function(){},
+            successHandler: function(){}
+        ,   errorHandler:   function(){}
         }, params );
 
         $.ajax(
@@ -44,8 +44,8 @@
     {
         var options = $.extend(
         {
-            successHandler: function(){},
-            errorHandler:   function(){},
+            successHandler: function(){}
+        ,   errorHandler:   function(){}
         }, params );
         
         $.ajax(
@@ -68,8 +68,8 @@
     {
         var options = $.extend(
         {
-            successHandler: function(){},
-            errorHandler:   function(){},
+            successHandler: function(){}
+        ,   errorHandler:   function(){}
         }, params );
         
         if ( theApp.cache.getUser() ) 
@@ -99,8 +99,8 @@
     {
         var options = $.extend(
         {
-            successHandler: function(){},
-            errorHandler:   function(){},
+            successHandler: function(){}
+        ,   errorHandler:   function(){}
         }, params );
         
         $.ajax(
@@ -125,8 +125,8 @@
     {
         var options = $.extend(
         {
-            successHandler: function(){},
-            errorHandler:   function(){},
+            successHandler: function(){}
+        ,   errorHandler:   function(){}
         }, params );
         
         if ( theApp.cache.getUsers() ) 
@@ -156,8 +156,8 @@
     {
         var options = $.extend(
         {
-            successHandler: function(){},
-            errorHandler:   function(){},
+            successHandler: function(){}
+        ,   errorHandler:   function(){}
         }, params );
 
         $.ajax(
@@ -181,8 +181,8 @@
     {
         var options = $.extend(
         {
-            successHandler: function(){},
-            errorHandler:   function(){},
+            successHandler: function(){}
+        ,   errorHandler:   function(){}
         }, params );
         
         $.ajax(
@@ -205,8 +205,8 @@
     {
         var options = $.extend(
         {
-            successHandler: function(){},
-            errorHandler:   function(){},
+            successHandler: function(){}
+        ,   errorHandler:   function(){}
         }, params );
         
         $.ajax(
@@ -229,8 +229,8 @@
     {
         var options = $.extend(
         {
-            successHandler: function(){},
-            errorHandler:   function(){},
+            successHandler: function(){}
+        ,   errorHandler:   function(){}
         }, params );
         
         $.ajax(
@@ -255,7 +255,7 @@
         var options = $.extend(
         {
             successHandler: function(){}
-        ,   errorHandler:   function(){},
+        ,   errorHandler:   function(){}
         }, params );
 
         $.ajax(
