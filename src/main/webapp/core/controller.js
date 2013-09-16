@@ -140,16 +140,9 @@
     {
         theApp.log( "[hashchange]", document.location.href );
 
-        // As an example I'm using a URL that would look like this:
-        // #main=welcome
-        //
-        // The easiest way is to just put the fragment name you want to load
-        // in the main variable. If you need to translate a simple
-        // switch/case will sort you out
-        //
         var main = $.bbq.getState( "main" );
 
-        if ( main === "profile" || checkIfHasAccess( main ) ) 
+        if ( main === "profile" || main === "login" || checkIfHasAccess( main ) ) 
         {
             switch( main )
             {
