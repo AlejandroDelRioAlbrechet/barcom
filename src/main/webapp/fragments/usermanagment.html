@@ -3,12 +3,12 @@
         <div class="col-lg-12">
             <ul class="nav nav-tabs">
                 <li class="active"><a href="#main=usermanagment&usermanagment=users">Користувачі</a></li>
-                <li><a href="#main=usermanagment&usermanagment=adduser">Додати нового користувача</a></li>
+                <li class="add"><a href="#main=usermanagment&usermanagment=adduser">Додати нового користувача</a></li>
             </ul>
         </div>
     </div>
     <br>
-    <div class="row">
+    <div class="row searchForm">
         <div class="col-lg-12">
             <form class="form-inline">
                 <div class="col-md-6">
@@ -37,7 +37,7 @@
             </form>
         </div>
     </div>
-    <div class="row">
+    <div class="row usersContainer">
         <div class="col-lg-12 users">
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -84,8 +84,168 @@
                 </table>
             </div>
         </div>
-        <div class="col-lg-12 addUser hidden">
+    </div>
+    <div class="row addUser hidden">
+        <div class="col-lg-12">
+            <form class="bs-example profileForm" role="form">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Основні дані</h3>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="firstname">Ім'я *</label>
+                            <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Ім'я">
+                        </div>
+                        <div class="form-group">
+                            <label for="lastname">Прізвище *</label>
+                            <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Прізвище">
+                        </div>
+                        <div class="form-group">
+                            <label for="fathername">По батькові *</label>
+                            <input type="text" name="fathername" class="form-control" id="fathername" placeholder="По батькові">
+                        </div>
+                        <div class="form-group">
+                            <label for="identicalCode">Ідентифікаційний номер *</label>
+                            <input type="text" name="identicalCode" class="form-control" id="identicalCode" placeholder="Ідентифікаційний код">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="birthDate">Дата народження *</label>
+                            <input type="date" name="birthDate" class="form-control" id="birthDate" placeholder="Дата народження">
+                        </div>
+                        <div class="form-group">
+                            <label for="adress">Домашня адреса *</label>
+                            <input type="text" name="adress" class="form-control" id="adress" placeholder="Домашня адреса">
+                        </div>
+                        <div class="form-group">
+                            <label for="pasportNumber">Номер паспорта *</label>
+                            <input type="text" name="pasportNumber" class="form-control" id="pasportNumber" placeholder="Номер паспорта">
+                        </div>
+                        <div class="form-group">
+                            <label for="registrationAdress">Прописка *</label>
+                            <input type="text" name="registrationAdress" class="form-control" id="registrationAdress" placeholder="Прописка">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+                        </div>
+                        <div class="form-group">
+                            <label for="telephone">Мобільний номер телефону *</label>
+                            <input type="text" name="telephone" class="form-control" id="telephone" placeholder="Мобільний номер телефону">
+                        </div>
+                        <div class="form-group">
+                            <label for="homeTelephone">Домашній номер телефону *</label>
+                            <input type="text" name="homeTelephone" class="form-control" id="homeTelephone" placeholder="Домашній номер телефону">
+                        </div>
+                        <div class="form-group">
+                            <label for="workTelephone">Робочий номер телефону *</label>
+                            <input type="text" name="workTelephone" class="form-control" id="workTelephone" placeholder="Робочий номер телефону">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Робочий процес</h3>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="department">Відділ *</label>
+                            <input type="text" name="department" class="form-control" id="department" placeholder="Відділ">
+                        </div>
+                        <div class="form-group">
+                            <label for="director">Керівник *</label>
+                            <input type="text" name="director" class="form-control" id="director" placeholder="Керівник">
+                        </div>
+                        <div class="form-group">
+                            <label for="shclude">Графіік роботи *</label>
+                            <input type="text" name="shclude" class="form-control" id="shclude" placeholder="Графіік роботи">
+                            <p class="help-block">Приклад формату 8:30-18:30</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="startDate">Дата початку роботи *</label>
+                            <input type="date" name="startDate" class="form-control" id="startDate" placeholder="Дата початку роботи">
+                        </div>
+                        <div class="form-group">
+                            <label for="officialStartDate">Дата офіційного влаштування *</label>
+                            <input type="date" name="officialStartDate" class="form-control" id="officialStartDate" placeholder="Керівник">
+                        </div>
+                    </div>
 
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Безпека</h3>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="login">Логін *</label>
+                            <input type="text" name="login" class="form-control" id="login" placeholder="Логін">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label for="password">Пароль *</label>
+                            <input type="password" name="password"  class="form-control" id="password" placeholder="Пароль">
+                        </div>
+                        <div class="form-group">
+                            <label for="password2">Підтвердіть пароль *</label>
+                            <input type="password" name="password2" class="form-control" id="password2" placeholder="Підтвердіть пароль">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-primary">Додати</button>
+                    </div>
+                </div>
+            </form>
+            <div class="userDocs hidden">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h3>Скановані документи</h3>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="dropbox" id="dropbox"><span>Кинь файли у цей регіон</span></div>
+                        <div class="files"></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <hr>
+                    <div class="col-md-4">
+                        <input type="file" name="docUpload" class="">
+                    </div>
+                    <div class="col-md-8">
+                        <button type="submit" class="btn btn-primary">Додати</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <hr>
+                        <button type="submit" class="btn btn-primary">Зберегти</button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

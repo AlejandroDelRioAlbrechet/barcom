@@ -35,7 +35,7 @@
     var modules = 
         {
             userManagment : { url : "#main=usermanagment", name : "Керування користувачами" }
-        ,   manageDepartments : { url: "#main=managedepartments", name: "Керування департаментами" }
+        ,   manageDepartments : { url: "#main=managedepartments", name: "Керування відділами" }
         };
     
     controller.buildMenu = function( moduleAccess ) 

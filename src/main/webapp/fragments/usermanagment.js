@@ -10,7 +10,7 @@
 ;( function( $, context, appName )
 {
     var initialized  = false
-    ,   fragmentName = "userManagment"
+    ,   fragmentName = "usermanagment"
     ,   fragment     = {}
     ,   snippets     = {}
     ,   options      = {}
@@ -68,6 +68,49 @@
         var $context        = $( options.context )
         ;
         
+        $context.find( ".nav.nav-tabs li" ).click( function( e ) 
+        {
+            e.preventDefault();
+            $context.find( ".nav.nav-tabs li" ).removeClass( "active" );
+            $( this ).addClass( "active" );
+            
+            if ( $( this ).hasClass( "add" ) ) 
+            {
+                $context.find( ".searchForm"     ).addClass( "hidden" );
+                $context.find( ".usersContainer" ).addClass( "hidden" );
+                $context.find( ".addUser"        ).removeClass( "hidden" );
+            }
+            else 
+            {
+                $context.find( ".searchForm"     ).removeClass( "hidden" );
+                $context.find( ".usersContainer" ).removeClass( "hidden" );
+                $context.find( ".addUser"        ).addClass( "hidden" );
+            }
+            
+            return false;
+        } ); 
+        
+        $context.find( ".nav.nav-tabs a" ).click( function( e ) 
+        {
+            e.preventDefault();
+            $context.find( ".nav.nav-tabs li" ).removeClass( "active" );
+            $( this ).parent().addClass( "active" );
+            
+            if ( $( this ).parent().hasClass( "add" ) ) 
+            {
+                $context.find( ".searchForm"     ).addClass( "hidden" );
+                $context.find( ".usersContainer" ).addClass( "hidden" );
+                $context.find( ".addUser"        ).removeClass( "hidden" );
+            }
+            else 
+            {
+                $context.find( ".searchForm"     ).removeClass( "hidden" );
+                $context.find( ".usersContainer" ).removeClass( "hidden" );
+                $context.find( ".addUser"        ).addClass( "hidden" );
+            }
+            return false;
+        } ); 
+        
         theApp.services.getAllUsers( 
         {
             successHandler : function ( data )
@@ -82,6 +125,45 @@
         ,   errorHandler   : function ( data ) 
             {
             }
+        } );
+        
+        $context.find( "#department" ).departmentAutoComplete( 
+        {
+            onSelect : function( item, val, text ) 
+            {
+                
+            }
+        } );
+        
+        $context.find( ".profileForm" ).validate( 
+        {
+            rules : 
+            {
+                login : { required : true }
+            ,   email : { required : true }
+            ,   firstname :  { required : true }
+            ,   lastname :  { required : true }
+            ,   telephone :  { required : true }
+            ,   adress :  { required : true }
+            ,   password :  { required : true }
+            ,   password2 :  { required : true ,    equalTo: "#password" }
+            ,   fathername :  { required : true }
+            ,   officialStartDate :  { required : true }
+            ,   startDate :  { required : true }
+            ,   shclude : { required : true }
+            ,   director :  { required : true }
+            ,   department :  { required : true }
+            ,   workTelephone :  { required : true }
+            ,   homeTelephone :  { required : true }
+            ,   registrationAdress :  { required : true }
+            ,   pasportNumber :  { required : true }
+            ,   birthDate :     { required : true }
+            ,   identicalCode : { required : true }
+            }
+        ,   submitHandler : function( form ) 
+            {
+                
+            } 
         } );
         
         // Use the fragment navigate function to set the correct fragment state
