@@ -54,6 +54,7 @@
         ,   url:    "rest/login/"
         ,   success: function( data, status, xhr )
             {
+                theApp.cache.storeUser( undefined );
                 options.successHandler( { response: data, xhr: xhr } );
             }
         ,   error: function( xhr, status, error )
@@ -109,8 +110,7 @@
         ,   url:    "rest/user/" + options.userId
         ,   success: function( data, status, xhr )
             {
-//              TODO: add this function to cache
-//                                theApp.cache.removeUser( data );
+                theApp.cache.removeUser( options.userId );    
                 options.successHandler( { response: data, xhr: xhr } );
             }
         ,   error: function( xhr, status, error )
@@ -163,10 +163,11 @@
         $.ajax(
         {
             type:   "PUT"
-        ,   url:    "rest/user/" + params.userId
+        ,   url:    "rest/user/" + options.userId
         ,   data:   JSON.stringify( options.data )
         ,   success: function( data, status, xhr )
             {
+                theApp.cache.updateUser( options.userId, data );
                 options.successHandler( { response: data, xhr: xhr } );
             }
         ,   error: function( xhr, status, error )
@@ -192,6 +193,7 @@
         ,   data:   JSON.stringify( options.data )
         ,   success: function( data, status, xhr )
             {
+                theApp.cache.addUser( data );
                 options.successHandler( { response: data, xhr: xhr } );
             }
         ,   error: function( xhr, status, error )
@@ -202,7 +204,7 @@
         } );
     };
     
-     services.getAllDepartments = function( params ) 
+    services.getAllDepartments = function( params ) 
     {
         var options = $.extend(
         {
@@ -210,12 +212,19 @@
         ,   errorHandler:   function(){}
         }, params );
         
+        if ( theApp.cache.getDepartments() ) 
+        {
+            options.successHandler( { response: theApp.cache.getDepartments(), xhr: null } );
+            return;
+        }
+        
         $.ajax(
         {
             type:   "GET"
         ,   url:    "rest/department/"
         ,   success: function( data, status, xhr )
             {
+                theApp.cache.storeDepartments( data );
                 options.successHandler( { response: data, xhr: xhr } );
             }
         ,   error: function( xhr, status, error )
@@ -240,6 +249,7 @@
         ,   url:    "rest/department/" + options.departmentId
         ,   success: function( data, status, xhr )
             {
+                theApp.cache.removeDepartment( options.departmentId );
                 options.successHandler( { response: data, xhr: xhr } );
             }
         ,   error: function( xhr, status, error )
@@ -265,6 +275,7 @@
         ,   data :  JSON.stringify( options.data )
         ,   success: function( data, status, xhr )
             {
+                theApp.cache.addDepartment( data );
                 options.successHandler( { response: data, xhr: xhr } );
             }
         ,   error: function( xhr, status, error )
@@ -286,10 +297,11 @@
         $.ajax(
         {
             type:   "PUT"
-        ,   url:    "rest/department/" + params.departmentId
+        ,   url:    "rest/department/" + options.departmentId
         ,   data:   JSON.stringify( options.data )
         ,   success: function( data, status, xhr )
             {
+                theApp.cache.updateDepartment( options.departmentId, data );
                 options.successHandler( { response: data, xhr: xhr } );
             }
         ,   error: function( xhr, status, error )

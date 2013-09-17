@@ -257,9 +257,55 @@
         $userSnippet.find( ".index"           ).html( user.id );
         $userSnippet.find( ".dateOfOfficialArrangment" ).html( user.dateOfFormalArrangment );
         
-        $userSnippet.find( "a" ).click( function( e ) 
+        $userSnippet.find( ".view" ).click( function( e ) 
         {
             e.preventDefault();
+            return false;
+        } );
+        
+        $userSnippet.find( ".edit" ).click( function( e ) 
+        {
+            e.preventDefault();
+            return false;
+        } );
+        
+        $userSnippet.find( ".remove" ).click( function( e ) 
+        {
+            e.preventDefault();
+            theApp.popup( 
+            {
+                title:      "Видалення департамент"
+            ,   content:    "<span>Ви дійсно хочете видалити користувача, " + user.firstName + " " + user.lastName + " " + user.fatherName + "</span>" 
+            ,   yes :       "Видалити"
+            ,   callback: function( choice, success )
+                {
+                    if ( choice ) 
+                    {
+                        $userSnippet.find( ".remove i" )
+                                    .removeClass( "glyphicon-remove" )
+                                    .addClass( "glyphicon-repeat" )
+                                    .addClass( "loadingIcon" );
+                        theApp.services.removeUser( 
+                        {
+                            userId : user.id
+                        ,   successHandler : function ( data )
+                            {
+                                $userSnippet.find( ".remove i" )
+                                    .removeClass( "glyphicon-repeat" )
+                                    .addClass( "glyphicon-remove" )
+                                    .removeClass( "loadingIcon" );
+                                
+                                $userSnippet.remove();
+                                
+                                success();
+                            }
+                        ,   errorHandler   : function ( data ) 
+                            {
+                            }
+                        } );
+                    }
+                }
+            } );
             return false;
         } );
         

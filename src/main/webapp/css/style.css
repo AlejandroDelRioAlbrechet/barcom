@@ -62,6 +62,8 @@ table {
 .progress-bar {
   width: 300px;
   height: 14px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
   border-radius: 10px;
   border: 1px solid #cccccc;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#6666cc), to(#4b4b95));
@@ -72,6 +74,8 @@ table {
 .uploaded {
   padding: 0;
   height: 14px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
   border-radius: 10px;
   background-image: -webkit-gradient(linear, left top, left bottom, from(#66cc00), to(#4b9500));
   border-image: initial;
@@ -129,4 +133,32 @@ input[type="range"].form-control {
   -webkit-box-shadow: 0px 0px 5px #333333;
   -moz-box-shadow: 0px 0px 5px #333333;
   box-shadow: 0px 0px 5px #333333;
+}
+
+/* line 45, ../sass/style.scss */
+.loadingIcon {
+  -webkit-animation: spinPulse 2s linear infinite;
+  -moz-animation: spinPulse 2s linear infinite;
+  animation: spinPulse 2s linear infinite;
+}
+
+@-moz-keyframes spinPulse {
+  /* line 48, ../sass/style.scss */
+  0% {
+    -moz-transform: rotate(160deg);
+    opacity: 0;
+    box-shadow: 0 0 1px #2187e7;
+  }
+
+  /* line 54, ../sass/style.scss */
+  50% {
+    -moz-transform: rotate(145deg);
+    opacity: 1;
+  }
+
+  /* line 59, ../sass/style.scss */
+  100% {
+    -moz-transform: rotate(-320deg);
+    opacity: 0;
+  }
 }

@@ -11,8 +11,15 @@
     var theApp   = $.getAndCreateContext( appName, context )
     ,   utils    = {}
     ;
-
+    
     theApp.utils = utils;
+
+    Array.prototype.remove = function( from, to ) 
+    {
+        var rest = this.slice((to || from) + 1 || this.length);
+        this.length = from < 0 ? this.length + from : from;
+        return this.push.apply(this, rest);
+    };
 
    /**
     * Converts a date string to a date object with the chosen format. Default is 'dd-mm-yyyy'
@@ -57,7 +64,7 @@
         }
 
     	return result;
-    }
+    };
 
    /**
     * Converts a date object to a string with the chosen format. Default is 'dd-mm-yyyy'
@@ -216,7 +223,7 @@
             ,   dataType:       "script"
             });
         }
-    }
+    };
 
     /**
      *  Wrapper function around JSON.stringify and the capability test + optionally retrieval of json2.js
@@ -228,7 +235,7 @@
         utils._checkJSON();
 
         return JSON.stringify( obj );
-    }
+    };
 
     /**
      *  Wrapper function around JSON.parse and the capability test + optionally retrieval of json2.js
@@ -240,6 +247,6 @@
         utils._checkJSON();
 
         return JSON.parse( str );
-    }
+    };
 
 } )( jQuery, window, "barcom" );
