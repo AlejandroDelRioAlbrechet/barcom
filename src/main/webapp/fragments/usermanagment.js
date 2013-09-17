@@ -66,7 +66,97 @@
         }
 
         var $context        = $( options.context )
-        ;
+        ,   formRules       = 
+            {
+                login : { required : true }
+            ,   email : { required : true, email: true }
+            ,   firstname :  { required : true }
+            ,   lastname :  { required : true }
+            ,   telephone :  { required : true }
+            ,   adress :  { required : true }
+            ,   password :  { required : true }
+            ,   password2 :  { required : true ,    equalTo: "#password" }
+            ,   fathername :  { required : true }
+            ,   officialStartDate :  { required : true }
+            ,   startDate :  { required : true }
+            ,   shclude : { required : true }
+            ,   director :  { required : true }
+            ,   department :  { required : true }
+            ,   workTelephone :  { required : true }
+            ,   homeTelephone :  { required : true }
+            ,   registrationAdress :  { required : true }
+            ,   pasportNumber :  { required : true }
+            ,   birthDate :     { required : true }
+            ,   identicalCode : { required : true, digits : true }
+            }
+        ;   
+
+        fragment.afterValidate  =
+        {
+            addUser : 
+            { 
+                active : true 
+            ,   execute : function( form ) 
+                {
+                    theApp.services.addUser( 
+                    {
+                        data : getUserEntiryFromForm()
+                    ,   successHandler : function ( data )
+                        {
+                            data.response.department = $context.find( "#department" ).val().trim();
+
+                            clearFields( $context );
+
+                            $( form ).find( "button" ).popover( { placement : "top", title : "Інформація", content: "Користувача успішно додано!", animation : true } );
+
+                            $( form ).find( "button" ).popover( "show" );
+                            setTimeout( function(  ) { $( form ).find( "button" ).popover( "hide" ); }, 3000 );
+
+                            $context.find( ".table-responsive .table tbody" ).append( createUserRow( data.response, $context ) );
+
+                            // TODO: files upload logic
+                            //
+                        }
+                    ,   errorHandler   : function ( data ) 
+                        {
+                            $( form ).find( "button" ).popover( { placement : "top", title : "Інформація", content: "Користувача успішно не додано логін: '" + $context.find( "#login" ).val() + " вже існує!", animation : true } );
+
+                            $( form ).find( "button" ).popover( "show" );
+                            setTimeout( function(  ) { $( form ).find( "button" ).popover( "hide" ); }, 3000 );
+                        }
+                    } );
+                }
+            }
+        ,   updateUser :
+            {
+                active : false
+            ,   execute : function( form ) 
+                {
+                    var _this = this;
+                    theApp.services.updateUser( 
+                    {
+                        userId : _this.userId
+                    ,   data : getUserEntiryFromForm()
+                    ,   successHandler : function ( data )
+                        {
+                            fragment.afterValidate.updateUser.active    = false;
+                            fragment.afterValidate.addUser.active       = true;
+
+                            $context.find( ".searchForm"     ).removeClass( "hidden" );
+                            $context.find( ".usersContainer" ).removeClass( "hidden" );
+                            $context.find( ".addUser"        ).addClass( "hidden" );
+                            $context.find( ".addUser .btn-primary" ).text( "Додати" );
+                            $( this ).addClass( "hidden" );
+                            clearFields( $context );
+                            updateUserTableRow( _this.rowItem, data.response );
+                        }
+                    ,   errorHandler   : function ( data ) 
+                        {
+                        }
+                    } );
+                }
+            }
+        };
         
         $context.find( ".nav.nav-tabs li" ).click( function( e ) 
         {
@@ -115,11 +205,9 @@
         {
             successHandler : function ( data )
             {
-                $.each( data.response, function( index ) 
+                $.each( data.response, function() 
                 {
-                    // TODO: Build user row.
-                    // 
-                    $context.find( ".table-responsive .table tbody" ).append( createUserRow( this ) );
+                    $context.find( ".table-responsive .table tbody" ).append( createUserRow( this, $context ) );
                 } );
             }
         ,   errorHandler   : function ( data ) 
@@ -138,78 +226,19 @@
         
         $context.find( ".profileForm" ).validate( 
         {
-            rules : 
-            {
-                login : { required : true }
-            ,   email : { required : true, email: true }
-            ,   firstname :  { required : true }
-            ,   lastname :  { required : true }
-            ,   telephone :  { required : true }
-            ,   adress :  { required : true }
-            ,   password :  { required : true }
-            ,   password2 :  { required : true ,    equalTo: "#password" }
-            ,   fathername :  { required : true }
-            ,   officialStartDate :  { required : true }
-            ,   startDate :  { required : true }
-            ,   shclude : { required : true }
-            ,   director :  { required : true }
-            ,   department :  { required : true }
-            ,   workTelephone :  { required : true }
-            ,   homeTelephone :  { required : true }
-            ,   registrationAdress :  { required : true }
-            ,   pasportNumber :  { required : true }
-            ,   birthDate :     { required : true }
-            ,   identicalCode : { required : true, digits : true }
-            }
+            rules : formRules
         ,   submitHandler : function( form ) 
             {               
-                theApp.services.addUser( 
+                if ( fragment.afterValidate.addUser.active ) 
                 {
-                    data : getUserEntiryFromForm()
-                ,   successHandler : function ( data )
-                    {
-                        data.response.department = $context.find( "#department" ).val().trim();
-                        
-                        $context.find( "#login" ).val( "" );
-                        $context.find( "#firstname" ).val( "" );
-                        $context.find( "#lastname" ).val( "" );
-                        $context.find( "#fathername" ).val( "" );
-                        $context.find( "#email" ).val( "" );
-                        $context.find( "#telephone" ).val( "" );
-                        $context.find( "#adress" ).val( "" );
-                        $context.find( "#identicalCode" ).val( "" );
-                        $context.find( "#birthDate" ).val( "" );
-                        $context.find( "#pasportNumber" ).val( "" );
-                        $context.find( "#registrationAdress" ).val( "" );
-                        $context.find( "#homeTelephone" ).val( "" );
-                        $context.find( "#workTelephone" ).val( "" );
-                        $context.find( "#department" ).val( "" );
-                        $context.find( "#director" ).val( "" );
-                        $context.find( "#shclude" ).val( "" );
-                        $context.find( "#startDate" ).val( "" );
-                        $context.find( "#officialStartDate" ).val( "" );
-                        $context.find( "#officialStartDate" ).val( "" );
-                        $context.find( "#password2" ).val( "" );
-                        $context.find( "#password" ).val( "" );
-                        
-                        $( form ).find( "button" ).popover( { placement : "top", title : "Інформація", content: "Користувача успішно додано!", animation : true } );
-                        
-                        $( form ).find( "button" ).popover( "show" );
-                        setTimeout( function(  ) { $( form ).find( "button" ).popover( "hide" ); }, 3000 );
-                        
-                        $context.find( ".table-responsive .table tbody" ).append( createUserRow( data.response ) );
-                        
-                        // TODO: files upload logic
-                        //
-                    }
-                ,   errorHandler   : function ( data ) 
-                    {
-                        $( form ).find( "button" ).popover( { placement : "top", title : "Інформація", content: "Користувача успішно не додано логін: '" + $context.find( "#login" ).val() + " вже існує!", animation : true } );
-                        
-                        $( form ).find( "button" ).popover( "show" );
-                        setTimeout( function(  ) { $( form ).find( "button" ).popover( "hide" ); }, 3000 );
-                    }
-                } );
+                    fragment.afterValidate.addUser.execute( form );
+                }
+                else 
+                {
+                    fragment.afterValidate.updateUser.execute( form );
+                }
+                
+                return false;
             } 
         } );
         
@@ -243,19 +272,36 @@
         fragment.navigate( params );
     };
     
-    function createUserRow( user ) 
+    function clearFields( $context ) 
+    {
+        $context.find( "#login" ).val( "" );
+        $context.find( "#firstname" ).val( "" );
+        $context.find( "#lastname" ).val( "" );
+        $context.find( "#fathername" ).val( "" );
+        $context.find( "#email" ).val( "" );
+        $context.find( "#telephone" ).val( "" );
+        $context.find( "#adress" ).val( "" );
+        $context.find( "#identicalCode" ).val( "" );
+        $context.find( "#birthDate" ).val( "" );
+        $context.find( "#pasportNumber" ).val( "" );
+        $context.find( "#registrationAdress" ).val( "" );
+        $context.find( "#homeTelephone" ).val( "" );
+        $context.find( "#workTelephone" ).val( "" );
+        $context.find( "#department" ).val( "" );
+        $context.find( "#director" ).val( "" );
+        $context.find( "#shclude" ).val( "" );
+        $context.find( "#startDate" ).val( "" );
+        $context.find( "#officialStartDate" ).val( "" );
+        $context.find( "#officialStartDate" ).val( "" );
+        $context.find( "#password2" ).val( "" );
+        $context.find( "#password" ).val( "" );
+    }
+    
+    function createUserRow( user, $context ) 
     {
         var $userSnippet = snippets.userRowSnippet.clone();
-        $userSnippet.find( ".index"           ).html( user.id );
-        $userSnippet.find( ".name"            ).html( user.firstName + " " + user.lastName + " " + user.fatherName );
-        $userSnippet.find( ".department"      ).html( user.department );
-        $userSnippet.find( ".homePhoneNumber" ).html( user.homePhoneNumber );
-        $userSnippet.find( ".workPhoneNumber" ).html( user.workPhoneNumber );
-        $userSnippet.find( ".homeAdress"      ).html( user.adress );
-        $userSnippet.find( ".email"           ).html( user.email );
-        $userSnippet.find( ".birthData"       ).html( user.birthDate );
-        $userSnippet.find( ".index"           ).html( user.id );
-        $userSnippet.find( ".dateOfOfficialArrangment" ).html( user.dateOfFormalArrangment );
+        
+        updateUserTableRow( $userSnippet, user );
         
         $userSnippet.find( ".view" ).click( function( e ) 
         {
@@ -266,6 +312,52 @@
         $userSnippet.find( ".edit" ).click( function( e ) 
         {
             e.preventDefault();
+            
+            fragment.afterValidate.updateUser.active    = true;
+            fragment.afterValidate.addUser.active       = false;
+            fragment.afterValidate.updateUser.userId    = user.id;
+            fragment.afterValidate.updateUser.rowItem   = $userSnippet;
+            
+            $context.find( "#login" ).val(              user.login );
+            $context.find( "#firstname" ).val(          user.firstName );
+            $context.find( "#lastname" ).val(           user.lastName );
+            $context.find( "#fathername" ).val(         user.fatherName );
+            $context.find( "#email" ).val(              user.email );
+            $context.find( "#telephone" ).val(          user.phoneNumber );
+            $context.find( "#adress" ).val(             user.adress );
+            $context.find( "#identicalCode" ).val(      user.identationCode );
+            $context.find( "#birthDate" ).val(          user.birthDate );
+            $context.find( "#pasportNumber" ).val(      user.passportNumber );
+            $context.find( "#registrationAdress" ).val( user.registaration );
+            $context.find( "#homeTelephone" ).val(      user.homePhoneNumber );
+            $context.find( "#workTelephone" ).val(      user.workPhoneNumber );
+            $context.find( "#department" ).val(         user.department );
+            $context.find( "#director" ).val(           user.director );
+            $context.find( "#shclude" ).val(            user.schludeOfWork );
+            $context.find( "#startDate" ).val(          user.startDate );
+            $context.find( "#officialStartDate" ).val(  user.dateOfFormalArrangment );
+            
+            $context.find( ".searchForm"     ).addClass( "hidden" );
+            $context.find( ".usersContainer" ).addClass( "hidden" );
+            $context.find( ".addUser .btn-primary" ).text( "Редагувати користувача" );
+            $context.find( ".addUser"        ).removeClass( "hidden" )
+                    .find( "button.btn-default" ).removeClass( "hidden" )
+                    .unbind( "click" ).click( function( e ) 
+            {
+                e.preventDefault();
+                
+                fragment.afterValidate.updateUser.active    = false;
+                fragment.afterValidate.addUser.active       = true;
+                
+                $context.find( ".searchForm"     ).removeClass( "hidden" );
+                $context.find( ".usersContainer" ).removeClass( "hidden" );
+                $context.find( ".addUser"        ).addClass( "hidden" );
+                $context.find( ".addUser .btn-primary" ).text( "Додати" );
+                $( this ).addClass( "hidden" );
+                clearFields( $context );
+                return false;
+            } );
+            
             return false;
         } );
         
@@ -310,6 +402,20 @@
         } );
         
         return $userSnippet;
+    }
+    
+    function updateUserTableRow( $userRowItem, user ) 
+    {
+        $userRowItem.find( ".index"           ).html( user.id );
+        $userRowItem.find( ".name"            ).html( user.firstName + " " + user.lastName + " " + user.fatherName );
+        $userRowItem.find( ".department"      ).html( user.department );
+        $userRowItem.find( ".homePhoneNumber" ).html( user.homePhoneNumber );
+        $userRowItem.find( ".workPhoneNumber" ).html( user.workPhoneNumber );
+        $userRowItem.find( ".homeAdress"      ).html( user.adress );
+        $userRowItem.find( ".email"           ).html( user.email );
+        $userRowItem.find( ".birthData"       ).html( user.birthDate );
+        $userRowItem.find( ".index"           ).html( user.id );
+        $userRowItem.find( ".dateOfOfficialArrangment" ).html( user.dateOfFormalArrangment );
     }
     
     // Private methods
