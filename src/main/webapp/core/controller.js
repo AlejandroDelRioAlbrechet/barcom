@@ -53,14 +53,20 @@
             
             menuItem.click( function( e ) 
             {
-                $( ".navbar-nav.navbar-left li" ).removeClass( "active" );
+                $( ".nav.navbar-nav li" ).removeClass( "active" );
                 $( this ).addClass( "active" );
             } );
             
             $( ".navbar-nav.navbar-left" ).append( menuItem );
         } );
         
-        $( ".navbar-nav.navbar-left a" ).each( function( index ) 
+        $( ".nav.navbar-right li" ).click( function( e ) 
+        {
+            $( ".nav.navbar-nav li" ).removeClass( "active" );
+            $( this ).addClass( "active" );
+        } );
+        
+        $( ".nav.navbar-nav a" ).each( function() 
         {
             var tab = $( this ).attr( "href" ).substr( $( this ).attr( "href" ).indexOf( "=" ) + 1, $( this ).attr( "href" ).length );
             if ( tab === $.bbq.getState( "main" ) ) 

@@ -68,6 +68,14 @@
         var $context        = $( options.context )
         ;
         
+        $context.find( "#department" ).departmentAutoComplete( 
+        {
+            onSelect : function( item, val, text ) 
+            {
+                $context.find( "#department" ).attr( "data-department-id", val );
+            }
+        } );
+        
         theApp.services.getUser( 
         {
             successHandler : function ( data )
@@ -104,7 +112,7 @@
                     rules : 
                     {
                         login : { required : true }
-                    ,   email : { required : true }
+                    ,   email : { required : true, email: true }
                     ,   firstname :  { required : true }
                     ,   lastname :  { required : true }
                     ,   telephone :  { required : true }
@@ -122,7 +130,7 @@
                     ,   registrationAdress :  { required : true }
                     ,   pasportNumber :  { required : true }
                     ,   birthDate :     { required : true }
-                    ,   identicalCode : { required : true }
+                    ,   identicalCode : { required : true, digits : true }
                     }
                 ,   submitHandler : function( form ) 
                     {
@@ -130,7 +138,7 @@
                         updatedUser.adress                  = $context.find( "#adress" ).val().trim();
                         updatedUser.birthDate               = $context.find( "#birthDate" ).val().trim();
                         updatedUser.dateOfFormalArrangment  = $context.find( "#officialStartDate" ).val().trim();
-                        updatedUser.department              = $context.find( "#department" ).val().trim();
+                        updatedUser.department              = $context.find( "#department" ).attr( "data-department-id" );
                         updatedUser.director                = $context.find( "#director" ).val().trim();
                         updatedUser.email                   = $context.find( "#email" ).val().trim();
                         updatedUser.fatherName              = $context.find( "#fathername" ).val().trim();
@@ -145,7 +153,7 @@
                         updatedUser.registaration           = $context.find( "#registrationAdress" ).val().trim();
                         updatedUser.schludeOfWork           = $context.find( "#shclude" ).val().trim();
                         updatedUser.startDate               = $context.find( "#startDate" ).val().trim();
-                        updatedUser.workPhoneNumber         = $context.find( "#officialStartDate" ).val().trim();
+                        updatedUser.workPhoneNumber         = $context.find( "#workTelephone" ).val().trim();
                         
                         theApp.services.updateUser( 
                         {

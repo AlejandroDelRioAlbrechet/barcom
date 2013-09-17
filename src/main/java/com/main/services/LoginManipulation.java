@@ -81,7 +81,13 @@ public class LoginManipulation {
 
     private User getUser(String login) {
         try {
-            String query = "SELECT * FROM barcom.barcom_users WHERE `login`='" + login + "'  LIMIT 1;";
+            String query = "SELECT barcom_users.id, barcom_users.login, barcom_users.password, barcom_users.first_name, \n"
+                    + "barcom_users.last_name, barcom_users.email, barcom_users.phone_number, barcom_users.registration,\n"
+                    + "barcom_users.adress, barcom_users.module_access, barcom_users.father_name, barcom_users.passport_number, \n"
+                    + "barcom_users.home_phone_number, barcom_users.indentation_code, barcom_users.work_phone_number, \n"
+                    + "departments.name, barcom_users.director, barcom_users.schlude_of_work, barcom_users.start_date_of_work,\n"
+                    + "barcom_users.date_of_formal_arrangement, barcom_users.birth_date, barcom_users.image_path \n"
+                    + "FROM barcom_users INNER JOIN departments on barcom_users.department_id = departments.id WHERE `login`='" + login + "'  LIMIT 1;";
             ResultSet result = MysqlDataBase.getInstance().select(query).afterExecution();
             User user = null;
             if (result.next()) {

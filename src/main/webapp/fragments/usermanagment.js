@@ -29,7 +29,7 @@
 
         // Copy the snippets
         //
-        snippets.exampleSnippet = $( " .snippet", options.context ).clone();
+        snippets.userRowSnippet = $( ".snippets .userRowSnippet tr", options.context ).remove();
 
         // Set the initialized flag
         //
@@ -115,11 +115,11 @@
         {
             successHandler : function ( data )
             {
-                $.each( data, function( index ) 
+                $.each( data.response, function( index ) 
                 {
                     // TODO: Build user row.
                     // 
-                    
+                    $context.find( ".table-responsive .table tbody" ).append( createUserRow( this ) );
                 } );
             }
         ,   errorHandler   : function ( data ) 
@@ -131,16 +131,17 @@
         {
             onSelect : function( item, val, text ) 
             {
-                
+                $context.find( "#department" ).attr( "data-department-id", val );
             }
         } );
+        $context.find( "#director" ).usersAutoComplete();
         
         $context.find( ".profileForm" ).validate( 
         {
             rules : 
             {
                 login : { required : true }
-            ,   email : { required : true }
+            ,   email : { required : true, email: true }
             ,   firstname :  { required : true }
             ,   lastname :  { required : true }
             ,   telephone :  { required : true }
@@ -158,19 +159,113 @@
             ,   registrationAdress :  { required : true }
             ,   pasportNumber :  { required : true }
             ,   birthDate :     { required : true }
-            ,   identicalCode : { required : true }
+            ,   identicalCode : { required : true, digits : true }
             }
         ,   submitHandler : function( form ) 
-            {
-                
+            {               
+                theApp.services.addUser( 
+                {
+                    data : getUserEntiryFromForm()
+                ,   successHandler : function ( data )
+                    {
+                        data.response.department = $context.find( "#department" ).val().trim();
+                        
+                        $context.find( "#login" ).val( "" );
+                        $context.find( "#firstname" ).val( "" );
+                        $context.find( "#lastname" ).val( "" );
+                        $context.find( "#fathername" ).val( "" );
+                        $context.find( "#email" ).val( "" );
+                        $context.find( "#telephone" ).val( "" );
+                        $context.find( "#adress" ).val( "" );
+                        $context.find( "#identicalCode" ).val( "" );
+                        $context.find( "#birthDate" ).val( "" );
+                        $context.find( "#pasportNumber" ).val( "" );
+                        $context.find( "#registrationAdress" ).val( "" );
+                        $context.find( "#homeTelephone" ).val( "" );
+                        $context.find( "#workTelephone" ).val( "" );
+                        $context.find( "#department" ).val( "" );
+                        $context.find( "#director" ).val( "" );
+                        $context.find( "#shclude" ).val( "" );
+                        $context.find( "#startDate" ).val( "" );
+                        $context.find( "#officialStartDate" ).val( "" );
+                        $context.find( "#officialStartDate" ).val( "" );
+                        $context.find( "#password2" ).val( "" );
+                        $context.find( "#password" ).val( "" );
+                        
+                        $( form ).find( "button" ).popover( { placement : "top", title : "Інформація", content: "Користувача успішно додано!", animation : true } );
+                        
+                        $( form ).find( "button" ).popover( "show" );
+                        setTimeout( function(  ) { $( form ).find( "button" ).popover( "hide" ); }, 3000 );
+                        
+                        $context.find( ".table-responsive .table tbody" ).append( createUserRow( data.response ) );
+                        
+                        // TODO: files upload logic
+                        //
+                    }
+                ,   errorHandler   : function ( data ) 
+                    {
+                        $( form ).find( "button" ).popover( { placement : "top", title : "Інформація", content: "Користувача успішно не додано логін: '" + $context.find( "#login" ).val() + " вже існує!", animation : true } );
+                        
+                        $( form ).find( "button" ).popover( "show" );
+                        setTimeout( function(  ) { $( form ).find( "button" ).popover( "hide" ); }, 3000 );
+                    }
+                } );
             } 
         } );
+        
+        function getUserEntiryFromForm() 
+        {
+            var newUser = {};
+            newUser.adress                  = $context.find( "#adress" ).val().trim();
+            newUser.birthDate               = $context.find( "#birthDate" ).val().trim();
+            newUser.dateOfFormalArrangment  = $context.find( "#officialStartDate" ).val().trim();
+            newUser.department              = $context.find( "#department" ).attr( "data-department-id" );
+            newUser.director                = $context.find( "#director" ).val().trim();
+            newUser.email                   = $context.find( "#email" ).val().trim();
+            newUser.fatherName              = $context.find( "#fathername" ).val().trim();
+            newUser.firstName               = $context.find( "#firstname" ).val().trim();
+            newUser.homePhoneNumber         = $context.find( "#homeTelephone" ).val().trim();
+            newUser.identationCode          = $context.find( "#identicalCode" ).val().trim();
+            newUser.lastName                = $context.find( "#lastname" ).val().trim();
+            newUser.login                   = $context.find( "#login" ).val().trim();
+            newUser.passportNumber          = $context.find( "#pasportNumber" ).val().trim();
+            newUser.password                = $context.find( "#login" ).val().trim();
+            newUser.phoneNumber             = $context.find( "#telephone" ).val().trim();
+            newUser.registaration           = $context.find( "#registrationAdress" ).val().trim();
+            newUser.schludeOfWork           = $context.find( "#shclude" ).val().trim();
+            newUser.startDate               = $context.find( "#startDate" ).val().trim();
+            newUser.workPhoneNumber         = $context.find( "#workTelephone" ).val().trim();
+            return newUser;
+        }
         
         // Use the fragment navigate function to set the correct fragment state
         //
         fragment.navigate( params );
     };
-
+    
+    function createUserRow( user ) 
+    {
+        var $userSnippet = snippets.userRowSnippet.clone();
+        $userSnippet.find( ".index"           ).html( user.id );
+        $userSnippet.find( ".name"            ).html( user.firstName + " " + user.lastName + " " + user.fatherName );
+        $userSnippet.find( ".department"      ).html( user.department );
+        $userSnippet.find( ".homePhoneNumber" ).html( user.homePhoneNumber );
+        $userSnippet.find( ".workPhoneNumber" ).html( user.workPhoneNumber );
+        $userSnippet.find( ".homeAdress"      ).html( user.adress );
+        $userSnippet.find( ".email"           ).html( user.email );
+        $userSnippet.find( ".birthData"       ).html( user.birthDate );
+        $userSnippet.find( ".index"           ).html( user.id );
+        $userSnippet.find( ".dateOfOfficialArrangment" ).html( user.dateOfFormalArrangment );
+        
+        $userSnippet.find( "a" ).click( function( e ) 
+        {
+            e.preventDefault();
+            return false;
+        } );
+        
+        return $userSnippet;
+    }
+    
     // Private methods
     //
 
