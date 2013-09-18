@@ -44,7 +44,7 @@
                             source.push(
                             {
                                 id: result.id
-                            ,   name: result.name+' (' + result.director + ') '
+                            ,   name: result.name
                             } );                          
                         } );
 
