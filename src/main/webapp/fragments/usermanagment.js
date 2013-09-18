@@ -135,8 +135,8 @@
                     var _this = this;
                     theApp.services.updateUser( 
                     {
-                        userId : _this.userId
-                    ,   data : getUserEntiryFromForm()
+                        userId :    _this.userId
+                    ,   data :      getUserEntiryFromForm()
                     ,   successHandler : function ( data )
                         {
                             fragment.afterValidate.updateUser.active    = false;
@@ -248,7 +248,8 @@
             newUser.adress                  = $context.find( "#adress" ).val().trim();
             newUser.birthDate               = $context.find( "#birthDate" ).val().trim();
             newUser.dateOfFormalArrangment  = $context.find( "#officialStartDate" ).val().trim();
-            newUser.department              = $context.find( "#department" ).attr( "data-department-id" );
+            newUser.departmentId            = $context.find( "#department" ).attr( "data-department-id" );
+            newUser.department              = $context.find( "#department" ).val().trim();
             newUser.director                = $context.find( "#director" ).val().trim();
             newUser.email                   = $context.find( "#email" ).val().trim();
             newUser.fatherName              = $context.find( "#fathername" ).val().trim();
@@ -331,7 +332,7 @@
             $context.find( "#registrationAdress" ).val( user.registaration );
             $context.find( "#homeTelephone" ).val(      user.homePhoneNumber );
             $context.find( "#workTelephone" ).val(      user.workPhoneNumber );
-            $context.find( "#department" ).val(         user.department );
+            $context.find( "#department" ).val(         user.department ).attr( "data-department-id", user.departmentId );
             $context.find( "#director" ).val(           user.director );
             $context.find( "#shclude" ).val(            user.schludeOfWork );
             $context.find( "#startDate" ).val(          user.startDate );

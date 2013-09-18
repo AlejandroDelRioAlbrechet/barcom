@@ -41,6 +41,7 @@ public class Utils {
             user.setDateOfFormalArrangment(result.getString(20));//dateOfFormalArrangment
             user.setBirthDate(result.getString(21));
             user.setImagePath(result.getString(22));
+            user.setDepartmentId(result.getInt(23));
         } catch (SQLException ex) {
             Logger.getLogger(Constants.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

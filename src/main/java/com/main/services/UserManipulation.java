@@ -50,7 +50,7 @@ public class UserManipulation {
             newUser.getHomePhoneNumber(),
             "" + newUser.getIdentationCode(),
             newUser.getWorkPhoneNumber(),
-            newUser.getDepartment(),
+            "" + newUser.getDepartmentId(),
             newUser.getDirector(),
             newUser.getSchludeOfWork(),
             newUser.getStartDate(),
@@ -77,7 +77,7 @@ public class UserManipulation {
                 + "barcom_users.adress, barcom_users.module_access, barcom_users.father_name, barcom_users.passport_number, \n"
                 + "barcom_users.home_phone_number, barcom_users.indentation_code, barcom_users.work_phone_number, \n"
                 + "departments.name, barcom_users.director, barcom_users.schlude_of_work, barcom_users.start_date_of_work,\n"
-                + "barcom_users.date_of_formal_arrangement, barcom_users.birth_date, barcom_users.image_path \n"
+                + "barcom_users.date_of_formal_arrangement, barcom_users.birth_date, barcom_users.image_path, barcom_users.department_id \n"
                 + "FROM barcom_users INNER JOIN departments on barcom_users.department_id = departments.id;").afterExecution();
         List<User> users = new ArrayList<User>();
         try {
@@ -110,7 +110,7 @@ public class UserManipulation {
                     + "', `home_phone_number`='" + updatedUser.getHomePhoneNumber()
                     + "', `indentation_code`=" + updatedUser.getIdentationCode()
                     + ", `work_phone_number`='" + updatedUser.getWorkPhoneNumber()
-                    + "', `department_id`='" + updatedUser.getDepartment()
+                    + "', `department_id`='" + updatedUser.getDepartmentId()
                     + "', `director`='" + updatedUser.getDirector()
                     + "', `schlude_of_work`='" + updatedUser.getSchludeOfWork()
                     + "', `start_date_of_work`='" + updatedUser.getStartDate()

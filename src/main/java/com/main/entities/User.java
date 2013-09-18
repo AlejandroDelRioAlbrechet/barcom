@@ -62,6 +62,9 @@ public class User {
     @JsonProperty("department")
     private String department;
     
+    @JsonProperty("departmentId")
+    private int departmentId;
+    
     @JsonProperty("director")
     private String director;
     
@@ -80,7 +83,7 @@ public class User {
     @JsonProperty("imagePath")
     private String imagePath; 
 
-    public User(int id, String login, String password, String firstName, String lastName, String email, String phoneNumber, String adress, String registaration, String moduleAccess, String fatherName, String passportNumber, String homePhoneNumber, int identationCode, String workPhoneNumber, String department, String director, String schludeOfWork, String startDate, String dateOfFormalArrangment, String birthDate, String imagePath) {
+    public User(int id, String login, String password, String firstName, String lastName, String email, String phoneNumber, String adress, String registaration, String moduleAccess, String fatherName, String passportNumber, String homePhoneNumber, int identationCode, String workPhoneNumber, String department, int departmentId, String director, String schludeOfWork, String startDate, String dateOfFormalArrangment, String birthDate, String imagePath) {
         this.id = id;
         this.login = login;
         this.password = password;
@@ -97,6 +100,7 @@ public class User {
         this.identationCode = identationCode;
         this.workPhoneNumber = workPhoneNumber;
         this.department = department;
+        this.departmentId = departmentId;
         this.director = director;
         this.schludeOfWork = schludeOfWork;
         this.startDate = startDate;
@@ -104,7 +108,7 @@ public class User {
         this.birthDate = birthDate;
         this.imagePath = imagePath;
     }
-    
+
     public User() {
     }
 
@@ -284,36 +288,40 @@ public class User {
         this.moduleAccess = moduleAccess;
     }
 
-    @Override
-    public String toString() {
-        return "User{" + "id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", adress=" + adress + ", registaration=" + registaration + ", moduleAccess=" + moduleAccess + ", fatherName=" + fatherName + ", passportNumber=" + passportNumber + ", homePhoneNumber=" + homePhoneNumber + ", identationCode=" + identationCode + ", workPhoneNumber=" + workPhoneNumber + ", department=" + department + ", director=" + director + ", schludeOfWork=" + schludeOfWork + ", startDate=" + startDate + ", dateOfFormalArrangment=" + dateOfFormalArrangment + ", birthDate=" + birthDate + ", imagePath=" + imagePath + '}';
+    public int getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(int departmentId) {
+        this.departmentId = departmentId;
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 79 * hash + this.id;
-        hash = 79 * hash + (this.login != null ? this.login.hashCode() : 0);
-        hash = 79 * hash + (this.password != null ? this.password.hashCode() : 0);
-        hash = 79 * hash + (this.firstName != null ? this.firstName.hashCode() : 0);
-        hash = 79 * hash + (this.lastName != null ? this.lastName.hashCode() : 0);
-        hash = 79 * hash + (this.email != null ? this.email.hashCode() : 0);
-        hash = 79 * hash + (this.phoneNumber != null ? this.phoneNumber.hashCode() : 0);
-        hash = 79 * hash + (this.adress != null ? this.adress.hashCode() : 0);
-        hash = 79 * hash + (this.registaration != null ? this.registaration.hashCode() : 0);
-        hash = 79 * hash + (this.moduleAccess != null ? this.moduleAccess.hashCode() : 0);
-        hash = 79 * hash + (this.fatherName != null ? this.fatherName.hashCode() : 0);
-        hash = 79 * hash + (this.passportNumber != null ? this.passportNumber.hashCode() : 0);
-        hash = 79 * hash + (this.homePhoneNumber != null ? this.homePhoneNumber.hashCode() : 0);
-        hash = 79 * hash + this.identationCode;
-        hash = 79 * hash + (this.workPhoneNumber != null ? this.workPhoneNumber.hashCode() : 0);
-        hash = 79 * hash + (this.department != null ? this.department.hashCode() : 0);
-        hash = 79 * hash + (this.director != null ? this.director.hashCode() : 0);
-        hash = 79 * hash + (this.schludeOfWork != null ? this.schludeOfWork.hashCode() : 0);
-        hash = 79 * hash + (this.startDate != null ? this.startDate.hashCode() : 0);
-        hash = 79 * hash + (this.dateOfFormalArrangment != null ? this.dateOfFormalArrangment.hashCode() : 0);
-        hash = 79 * hash + (this.birthDate != null ? this.birthDate.hashCode() : 0);
-        hash = 79 * hash + (this.imagePath != null ? this.imagePath.hashCode() : 0);
+        hash = 83 * hash + this.id;
+        hash = 83 * hash + (this.login != null ? this.login.hashCode() : 0);
+        hash = 83 * hash + (this.password != null ? this.password.hashCode() : 0);
+        hash = 83 * hash + (this.firstName != null ? this.firstName.hashCode() : 0);
+        hash = 83 * hash + (this.lastName != null ? this.lastName.hashCode() : 0);
+        hash = 83 * hash + (this.email != null ? this.email.hashCode() : 0);
+        hash = 83 * hash + (this.phoneNumber != null ? this.phoneNumber.hashCode() : 0);
+        hash = 83 * hash + (this.adress != null ? this.adress.hashCode() : 0);
+        hash = 83 * hash + (this.registaration != null ? this.registaration.hashCode() : 0);
+        hash = 83 * hash + (this.moduleAccess != null ? this.moduleAccess.hashCode() : 0);
+        hash = 83 * hash + (this.fatherName != null ? this.fatherName.hashCode() : 0);
+        hash = 83 * hash + (this.passportNumber != null ? this.passportNumber.hashCode() : 0);
+        hash = 83 * hash + (this.homePhoneNumber != null ? this.homePhoneNumber.hashCode() : 0);
+        hash = 83 * hash + this.identationCode;
+        hash = 83 * hash + (this.workPhoneNumber != null ? this.workPhoneNumber.hashCode() : 0);
+        hash = 83 * hash + (this.department != null ? this.department.hashCode() : 0);
+        hash = 83 * hash + this.departmentId;
+        hash = 83 * hash + (this.director != null ? this.director.hashCode() : 0);
+        hash = 83 * hash + (this.schludeOfWork != null ? this.schludeOfWork.hashCode() : 0);
+        hash = 83 * hash + (this.startDate != null ? this.startDate.hashCode() : 0);
+        hash = 83 * hash + (this.dateOfFormalArrangment != null ? this.dateOfFormalArrangment.hashCode() : 0);
+        hash = 83 * hash + (this.birthDate != null ? this.birthDate.hashCode() : 0);
+        hash = 83 * hash + (this.imagePath != null ? this.imagePath.hashCode() : 0);
         return hash;
     }
 
@@ -374,6 +382,9 @@ public class User {
         if ((this.department == null) ? (other.department != null) : !this.department.equals(other.department)) {
             return false;
         }
+        if (this.departmentId != other.departmentId) {
+            return false;
+        }
         if ((this.director == null) ? (other.director != null) : !this.director.equals(other.director)) {
             return false;
         }
@@ -393,6 +404,11 @@ public class User {
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", login=" + login + ", password=" + password + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", phoneNumber=" + phoneNumber + ", adress=" + adress + ", registaration=" + registaration + ", moduleAccess=" + moduleAccess + ", fatherName=" + fatherName + ", passportNumber=" + passportNumber + ", homePhoneNumber=" + homePhoneNumber + ", identationCode=" + identationCode + ", workPhoneNumber=" + workPhoneNumber + ", department=" + department + ", departmentId=" + departmentId + ", director=" + director + ", schludeOfWork=" + schludeOfWork + ", startDate=" + startDate + ", dateOfFormalArrangment=" + dateOfFormalArrangment + ", birthDate=" + birthDate + ", imagePath=" + imagePath + '}';
     }
 
 }

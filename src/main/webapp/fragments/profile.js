@@ -101,7 +101,7 @@
                 $context.find( "#registrationAdress" ).val( data.response.registaration );
                 $context.find( "#homeTelephone" ).val( data.response.homePhoneNumber );
                 $context.find( "#workTelephone" ).val( data.response.workPhoneNumber );
-                $context.find( "#department" ).val( data.response.department );
+                $context.find( "#department" ).val( data.response.department ).attr( "data-department-id", data.response.departmentId );
                 $context.find( "#director" ).val( data.response.director );
                 $context.find( "#shclude" ).val( data.response.schludeOfWork );
                 $context.find( "#startDate" ).val( data.response.startDate );
@@ -138,7 +138,8 @@
                         updatedUser.adress                  = $context.find( "#adress" ).val().trim();
                         updatedUser.birthDate               = $context.find( "#birthDate" ).val().trim();
                         updatedUser.dateOfFormalArrangment  = $context.find( "#officialStartDate" ).val().trim();
-                        updatedUser.department              = $context.find( "#department" ).attr( "data-department-id" );
+                        updatedUser.departmentId            = $context.find( "#department" ).attr( "data-department-id" );
+                        updatedUser.department              = $context.find( "#department" ).val().trim();
                         updatedUser.director                = $context.find( "#director" ).val().trim();
                         updatedUser.email                   = $context.find( "#email" ).val().trim();
                         updatedUser.fatherName              = $context.find( "#fathername" ).val().trim();

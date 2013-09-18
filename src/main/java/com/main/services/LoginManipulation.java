@@ -9,7 +9,6 @@ import com.main.entities.User;
 import com.main.utils.Utils;
 import java.io.File;
 import java.io.IOException;
-import java.math.BigInteger;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -86,7 +85,7 @@ public class LoginManipulation {
                     + "barcom_users.adress, barcom_users.module_access, barcom_users.father_name, barcom_users.passport_number, \n"
                     + "barcom_users.home_phone_number, barcom_users.indentation_code, barcom_users.work_phone_number, \n"
                     + "departments.name, barcom_users.director, barcom_users.schlude_of_work, barcom_users.start_date_of_work,\n"
-                    + "barcom_users.date_of_formal_arrangement, barcom_users.birth_date, barcom_users.image_path \n"
+                    + "barcom_users.date_of_formal_arrangement, barcom_users.birth_date, barcom_users.image_path, barcom_users.department_id \n"
                     + "FROM barcom_users INNER JOIN departments on barcom_users.department_id = departments.id WHERE `login`='" + login + "'  LIMIT 1;";
             ResultSet result = MysqlDataBase.getInstance().select(query).afterExecution();
             User user = null;
@@ -105,4 +104,5 @@ public class LoginManipulation {
         User user = getUser(email);
         return user != null ? user.getPassword().equals(password) : false;
     }
+    
 }
