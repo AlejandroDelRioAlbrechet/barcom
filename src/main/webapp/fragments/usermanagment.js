@@ -30,6 +30,7 @@
         // Copy the snippets
         //
         snippets.userRowSnippet = $( ".snippets .userRowSnippet tr", options.context ).remove();
+        snippets.roleSnippet = $( ".snippets .roleSnippet", options.context ).remove();
 
         // Set the initialized flag
         //
@@ -159,6 +160,14 @@
                 }
             }
         };
+        
+        $.each( theApp.controller.modules, function( index ) 
+        {
+            var $moduleItem = snippets.roleSnippet.clone();
+            $moduleItem.attr( "data-module-index", index ).find( "span" ).text( this.name );
+            
+            $context.find( ".possibleRols" ).append( $moduleItem );
+        } );
         
         $context.find( ".nav.nav-tabs li" ).click( function( e ) 
         {
@@ -348,10 +357,35 @@
                 $context.find( ".usersNotFound" ).addClass( "hidden" );
                 var $itemsContainer = $context.find( ".table-responsive .table tbody" );
                 $itemsContainer.empty();
-                $.each( _users, function() 
+                
+                
+                
+                if ( _users.length > MAX_ITEMS_ON_PAGE ) 
                 {
-                    $itemsContainer.append( createUserRow( this, $context ) );
-                } );
+                    
+                    var positionArray       = []
+                    ,   currentPosition    = 0
+                    ;
+
+                    while( currentPosition < _users.length ) 
+                    {
+                        positionArray.push( 
+                        { 
+                            start:      currentPosition
+                        ,   end:        ( currentPosition + MAX_ITEMS_ON_PAGE ) < _users.length ? currentPosition + MAX_ITEMS_ON_PAGE : _users.length 
+                        } );
+                        currentPosition+=MAX_ITEMS_ON_PAGE;
+                    }
+                    
+                    $context.find( ".pagination.pagination-sm" ).removeClass( "hidden" );
+                }
+                else 
+                {
+                    $.each( _users, function() 
+                    {
+                        $itemsContainer.append( createUserRow( this, $context ) );
+                    } );
+                }
             }
             else 
             {

@@ -47,6 +47,10 @@
                 </table>
                 <h3 class="hidden usersNotFound">Користувачів не знайдено</h3>
             </div>
+            <ul class="pagination pagination-sm hidden pull-right">
+                <li><a href="#">«</a></li>
+                <li><a href="#">»</a></li>
+            </ul>
         </div>
     </div>
     <div class="row addUser hidden">
@@ -150,6 +154,28 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12">
+                        <h3>Ролі користувача</h3>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label >Список ролей</label>
+                            <ul class="list-group possibleRols"></ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label >Список ролей які має користувач *</label>
+                        <ul class="list-group userRols">
+                            <li class="list-group-item default">
+                                <span >У даного користувача покащо немає ролей</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
                         <h3>Безпека</h3>
                         <hr>
                     </div>
@@ -231,6 +257,11 @@
                     <a href="#" class="remove"><i class="glyphicon glyphicon-remove"></i></a>
                 </td>
             </tr>
-        </table> 
+        </table>
+        <a href="#" class="list-group-item "></a>
+        <li class="list-group-item roleSnippet">
+            <a href="#" class="badge">»</a>
+            <span ></span>
+        </li>
     </div>
 </div>

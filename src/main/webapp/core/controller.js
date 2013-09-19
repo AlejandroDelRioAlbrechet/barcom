@@ -32,7 +32,7 @@
                             language:   "ua"
                         },  ( theApp.settings || {} ) );
                         
-    var modules = 
+    theApp.controller.modules = 
         {
             userManagment : { url : "#main=usermanagment", name : "Керування користувачами" }
         ,   manageDepartments : { url: "#main=managedepartments", name: "Керування відділами" }
@@ -47,7 +47,7 @@
         $.each( modulesForWhichUserHasAccess, function( index ) 
         {
             var menuItem = $menuItem.clone()
-            ,   module = modules[ this ]
+            ,   module = theApp.controller.modules[ this ]
             ;
             menuItem.find( "a" ).attr( "href", module.url ).text( module.name );
             
@@ -304,7 +304,7 @@
     function checkIfHasAccess( tab ) 
     {
         var hasAccess = false;
-        $.each( modules, function( index ) 
+        $.each( theApp.controller.modules, function( index ) 
         {
             var _tab = this.url.substr( this.url.indexOf( "=" ) + 1, this.url.length );  
             
