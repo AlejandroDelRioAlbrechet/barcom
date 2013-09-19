@@ -65,9 +65,10 @@
             fragment.init();
         }
 
-        var $context        = $( options.context )
-        ,   users           = undefined
-        ,   formRules       = 
+        var $context            = $( options.context )
+        ,   users               = undefined
+        ,   MAX_ITEMS_ON_PAGE   = 10
+        ,   formRules           = 
             {
                 login : { required : true }
             ,   email : { required : true, email: true }
@@ -113,7 +114,7 @@
                             $( form ).find( "button" ).popover( "show" );
                             setTimeout( function(  ) { $( form ).find( "button" ).popover( "hide" ); }, 3000 );
 
-                            $context.find( ".table-responsive .table tbody" ).append( createUserRow( data.response, $context ) );
+                            $context.find( ".table-responsive .table tbody" ).prepend( createUserRow( data.response, $context ) );
 
                             // TODO: files upload logic
                             //
@@ -208,6 +209,38 @@
             {
                 users = data.response;
                 buildUserTable( data.response );
+                
+                $context.find( "#userName" ).keyup( function( e ) 
+                {
+                    var value           = this.value.toLowerCase()
+                    ,   filteredByName  = []
+                    ;
+                    
+                    if ( value && value.length > 0 ) 
+                    {
+                        $.each( users, function( index ) 
+                        {
+                            var pib = ( this.lastName + " " + this.firstName + " " + this.fatherName ).toLowerCase()
+
+                            if ( pib.indexOf( value ) !== -1 ) 
+                            {
+                                filteredByName.push( this );
+                            }
+                            
+                            if ( index > MAX_ITEMS_ON_PAGE ) 
+                            {
+                                return false;
+                            }
+                        } );
+                    }
+                    else 
+                    {
+                        filteredByName = [].concat( users );
+                    }
+                    
+                    
+                    buildUserTable( filteredByName );
+                } );
             }
         ,   errorHandler   : function ( data ) 
             {
@@ -334,27 +367,27 @@
     
     function clearFields( $context ) 
     {
-        $context.find( "#login" ).val( "" );
-        $context.find( "#firstname" ).val( "" );
-        $context.find( "#lastname" ).val( "" );
-        $context.find( "#fathername" ).val( "" );
-        $context.find( "#email" ).val( "" );
-        $context.find( "#telephone" ).val( "" );
-        $context.find( "#adress" ).val( "" );
-        $context.find( "#identicalCode" ).val( "" );
-        $context.find( "#birthDate" ).val( "" );
-        $context.find( "#pasportNumber" ).val( "" );
-        $context.find( "#registrationAdress" ).val( "" );
-        $context.find( "#homeTelephone" ).val( "" );
-        $context.find( "#workTelephone" ).val( "" );
-        $context.find( "#department" ).val( "" );
-        $context.find( "#director" ).val( "" );
-        $context.find( "#shclude" ).val( "" );
-        $context.find( "#startDate" ).val( "" );
-        $context.find( "#officialStartDate" ).val( "" );
-        $context.find( "#officialStartDate" ).val( "" );
-        $context.find( "#password2" ).val( "" );
-        $context.find( "#password" ).val( "" );
+        $context.find( "#login"                 ).val( "" );
+        $context.find( "#firstname"             ).val( "" );
+        $context.find( "#lastname"              ).val( "" );
+        $context.find( "#fathername"            ).val( "" );
+        $context.find( "#email"                 ).val( "" );
+        $context.find( "#telephone"             ).val( "" );
+        $context.find( "#adress"                ).val( "" );
+        $context.find( "#identicalCode"         ).val( "" );
+        $context.find( "#birthDate"             ).val( "" );
+        $context.find( "#pasportNumber"         ).val( "" );
+        $context.find( "#registrationAdress"    ).val( "" );
+        $context.find( "#homeTelephone"         ).val( "" );
+        $context.find( "#workTelephone"         ).val( "" );
+        $context.find( "#department"            ).val( "" );
+        $context.find( "#director"              ).val( "" );
+        $context.find( "#shclude"               ).val( "" );
+        $context.find( "#startDate"             ).val( "" );
+        $context.find( "#officialStartDate"     ).val( "" );
+        $context.find( "#officialStartDate"     ).val( "" );
+        $context.find( "#password2"             ).val( "" );
+        $context.find( "#password"              ).val( "" );
     }
     
     function createUserRow( user, $context ) 
@@ -467,7 +500,7 @@
     function updateUserTableRow( $userRowItem, user ) 
     {
         $userRowItem.find( ".index"           ).html( user.id );
-        $userRowItem.find( ".name"            ).html( user.firstName + " " + user.lastName + " " + user.fatherName );
+        $userRowItem.find( ".name"            ).html( user.lastName + " " + user.firstName + " " + user.fatherName );
         $userRowItem.find( ".department"      ).html( user.department );
         $userRowItem.find( ".homePhoneNumber" ).html( user.homePhoneNumber );
         $userRowItem.find( ".workPhoneNumber" ).html( user.workPhoneNumber );
