@@ -66,6 +66,7 @@
         }
 
         var $context        = $( options.context )
+        ,   users           = undefined
         ,   formRules       = 
             {
                 login : { required : true }
@@ -205,10 +206,8 @@
         {
             successHandler : function ( data )
             {
-                $.each( data.response, function() 
-                {
-                    $context.find( ".table-responsive .table tbody" ).append( createUserRow( this, $context ) );
-                } );
+                users = data.response;
+                buildUserTable( data.response );
             }
         ,   errorHandler   : function ( data ) 
             {
@@ -242,6 +241,46 @@
             } 
         } );
         
+        theApp.services.getAllDepartments( 
+        {
+            successHandler : function ( data )
+            {
+                var $departmentsSelect = $context.find( "#departments" );
+                $.each( data.response, function( index ) 
+                {
+                    var $item = $( "<option/>" ).val( this.id ).text( this.name );
+                    $departmentsSelect.append( $item );
+                } ); 
+                
+                $departmentsSelect.change( function( e ) 
+                {
+                    var filteredUsers = []
+                    ,   value         = this.value
+                    ;
+                    
+                    if ( value === "all" ) 
+                    {
+                        filteredUsers = [].concat( users );
+                    }
+                    else 
+                    {
+                        $.each( users, function() 
+                        {
+                            if ( this.departmentId == value  ) 
+                            {
+                                filteredUsers.push( this );
+                            }
+                        } );
+                    }
+                    
+                    buildUserTable( filteredUsers );
+                } );
+            }
+        ,   errorHandler   : function ( data ) 
+            {
+            }
+        } );
+        
         function getUserEntiryFromForm() 
         {
             var newUser = {};
@@ -266,6 +305,26 @@
             newUser.startDate               = $context.find( "#startDate" ).val().trim();
             newUser.workPhoneNumber         = $context.find( "#workTelephone" ).val().trim();
             return newUser;
+        }
+        
+        function buildUserTable( _users ) 
+        {
+            if ( _users && _users.length > 0 ) 
+            {
+                $context.find( ".table-responsive .table" ).removeClass( "hidden" );
+                $context.find( ".usersNotFound" ).addClass( "hidden" );
+                var $itemsContainer = $context.find( ".table-responsive .table tbody" );
+                $itemsContainer.empty();
+                $.each( _users, function() 
+                {
+                    $itemsContainer.append( createUserRow( this, $context ) );
+                } );
+            }
+            else 
+            {
+                $context.find( ".table-responsive .table" ).addClass( "hidden" );
+                $context.find( ".usersNotFound" ).removeClass( "hidden" );
+            }
         }
         
         // Use the fragment navigate function to set the correct fragment state
