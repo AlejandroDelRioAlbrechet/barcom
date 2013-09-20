@@ -161,12 +161,27 @@
             }
         };
         
+        
+        var $possibleRolesContainer = $context.find( ".possibleRols" )
+        ;
+        
         $.each( theApp.controller.modules, function( index ) 
         {
             var $moduleItem = snippets.roleSnippet.clone();
-            $moduleItem.attr( "data-module-index", index ).find( "span" ).text( this.name );
             
-            $context.find( ".possibleRols" ).append( $moduleItem );
+            $moduleItem.find( "input" ).attr( "id", index );
+            $moduleItem.find( "label" ).attr( "for", index ).text( this.name );
+            
+            $moduleItem.hover( function()
+            {
+                $( this ).addClass( "active" );
+            }, 
+            function() 
+            {
+                $( this ).removeClass( "active" );
+            } );
+            
+            $possibleRolesContainer.append( $moduleItem );
         } );
         
         $context.find( ".nav.nav-tabs li" ).click( function( e ) 
@@ -325,28 +340,37 @@
         
         function getUserEntiryFromForm() 
         {
-            var newUser = {};
-            newUser.adress                  = $context.find( "#adress" ).val().trim();
-            newUser.birthDate               = $context.find( "#birthDate" ).val().trim();
-            newUser.dateOfFormalArrangment  = $context.find( "#officialStartDate" ).val().trim();
-            newUser.departmentId            = $context.find( "#department" ).attr( "data-department-id" );
-            newUser.department              = $context.find( "#department" ).val().trim();
-            newUser.director                = $context.find( "#director" ).val().trim();
-            newUser.email                   = $context.find( "#email" ).val().trim();
-            newUser.fatherName              = $context.find( "#fathername" ).val().trim();
-            newUser.firstName               = $context.find( "#firstname" ).val().trim();
-            newUser.homePhoneNumber         = $context.find( "#homeTelephone" ).val().trim();
-            newUser.identationCode          = $context.find( "#identicalCode" ).val().trim();
-            newUser.lastName                = $context.find( "#lastname" ).val().trim();
-            newUser.login                   = $context.find( "#login" ).val().trim();
-            newUser.passportNumber          = $context.find( "#pasportNumber" ).val().trim();
-            newUser.password                = $context.find( "#login" ).val().trim();
-            newUser.phoneNumber             = $context.find( "#telephone" ).val().trim();
-            newUser.registaration           = $context.find( "#registrationAdress" ).val().trim();
-            newUser.schludeOfWork           = $context.find( "#shclude" ).val().trim();
-            newUser.startDate               = $context.find( "#startDate" ).val().trim();
-            newUser.workPhoneNumber         = $context.find( "#workTelephone" ).val().trim();
-            return newUser;
+            var user = {};
+            user.adress                  = $context.find( "#adress" ).val().trim();
+            user.birthDate               = $context.find( "#birthDate" ).val().trim();
+            user.dateOfFormalArrangment  = $context.find( "#officialStartDate" ).val().trim();
+            user.departmentId            = $context.find( "#department" ).attr( "data-department-id" );
+            user.department              = $context.find( "#department" ).val().trim();
+            user.director                = $context.find( "#director" ).val().trim();
+            user.email                   = $context.find( "#email" ).val().trim();
+            user.fatherName              = $context.find( "#fathername" ).val().trim();
+            user.firstName               = $context.find( "#firstname" ).val().trim();
+            user.homePhoneNumber         = $context.find( "#homeTelephone" ).val().trim();
+            user.identationCode          = $context.find( "#identicalCode" ).val().trim();
+            user.lastName                = $context.find( "#lastname" ).val().trim();
+            user.login                   = $context.find( "#login" ).val().trim();
+            user.passportNumber          = $context.find( "#pasportNumber" ).val().trim();
+            user.password                = $context.find( "#login" ).val().trim();
+            user.phoneNumber             = $context.find( "#telephone" ).val().trim();
+            user.registaration           = $context.find( "#registrationAdress" ).val().trim();
+            user.schludeOfWork           = $context.find( "#shclude" ).val().trim();
+            user.startDate               = $context.find( "#startDate" ).val().trim();
+            user.workPhoneNumber         = $context.find( "#workTelephone" ).val().trim();
+            user.moduleAccess            = "";
+            $possibleRolesContainer.find( "input" ).each( function() 
+            {
+                if ( $( this ).is( ":checked" ) ) 
+                {
+                    user.moduleAccess += $( this ).attr( "id" ) + "|"
+                }
+            } );
+            
+            return user;
         }
         
         function buildUserTable( _users ) 
@@ -463,6 +487,11 @@
             $context.find( "#shclude" ).val(            user.schludeOfWork );
             $context.find( "#startDate" ).val(          user.startDate );
             $context.find( "#officialStartDate" ).val(  user.dateOfFormalArrangment );
+            
+            $.each( user.moduleAccess.split( "|" ), function( index ) 
+            {
+                $context.find( ".possibleRols #" + this ).prop('checked', true);;
+            } );
             
             $context.find( ".searchForm"     ).addClass( "hidden" );
             $context.find( ".usersContainer" ).addClass( "hidden" );

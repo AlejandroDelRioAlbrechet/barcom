@@ -44,7 +44,7 @@ public class UserManipulation {
             newUser.getPhoneNumber(),
             newUser.getRegistaration(),
             newUser.getAdress(),
-            "wery",
+            newUser.getModuleAccess(),
             newUser.getFatherName(),
             newUser.getPassportNumber(),
             newUser.getHomePhoneNumber(),
@@ -115,7 +115,8 @@ public class UserManipulation {
                     + "', `schlude_of_work`='" + updatedUser.getSchludeOfWork()
                     + "', `start_date_of_work`='" + updatedUser.getStartDate()
                     + "', `date_of_formal_arrangement`='" + updatedUser.getDateOfFormalArrangment()
-                    + "', `birth_date`='" + updatedUser.getBirthDate() + "'"
+                    + "', `birth_date`='" + updatedUser.getBirthDate() 
+                    + "', `module_access`='" + updatedUser.getModuleAccess() + "'"
                     + " WHERE  `id`=" + userId + " LIMIT 1;";
             MysqlDataBase.getInstance().update(query);
         }
